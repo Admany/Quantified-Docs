@@ -3,8 +3,8 @@
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  const PARTICLE_COUNT  = 55;
-  const CONNECT_DIST    = 115;
+  const PARTICLE_COUNT  = 88;
+  const CONNECT_DIST    = 148;
   const prefersReduced  = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let W, H, particles = [], raf;
@@ -21,10 +21,10 @@
     reset(spawning) {
       this.x   = Math.random() * W;
       this.y   = Math.random() * H;
-      this.vx  = (Math.random() - 0.5) * 0.22;
-      this.vy  = (Math.random() - 0.5) * 0.22;
-      this.r   = Math.random() * 1.4 + 0.4;
-      this.a   = Math.random() * 0.22 + 0.04;
+      this.vx  = (Math.random() - 0.5) * 0.38;
+      this.vy  = (Math.random() - 0.5) * 0.38;
+      this.r   = Math.random() * 1.75 + 0.45;
+      this.a   = Math.random() * 0.34 + 0.08;
       this.life    = spawning ? Math.random() * 300 : Math.random() * 300 + 150;
       this.maxLife = this.life;
     }
@@ -67,12 +67,12 @@
         const dy = a.y - b.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < CONNECT_DIST) {
-          const alpha = (1 - dist / CONNECT_DIST) * 0.045;
+          const alpha = (1 - dist / CONNECT_DIST) * 0.095;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
           ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = 0.75;
           ctx.stroke();
         }
       }
@@ -128,13 +128,31 @@
     history.replaceState(null, '', '#' + id);
   }
 
-  function openMobile() {
-    sidebar.classList.add('open');
-    backdrop.classList.add('visible');
+  function syncNavAria(isOpen) {
+    if (!toggle) return;
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    toggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+    if (backdrop) backdrop.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
   }
+
   function closeMobile() {
-    sidebar.classList.remove('open');
-    backdrop.classList.remove('visible');
+    sidebar?.classList.remove('open');
+    backdrop?.classList.remove('visible');
+    document.body.classList.remove('mobile-nav-open');
+    syncNavAria(false);
+  }
+
+  function openMobile() {
+    sidebar?.classList.add('open');
+    backdrop?.classList.add('visible');
+    document.body.classList.add('mobile-nav-open');
+    syncNavAria(true);
+  }
+
+  function toggleMobileNav() {
+    if (!sidebar) return;
+    if (sidebar.classList.contains('open')) closeMobile();
+    else openMobile();
   }
 
   navLinks.forEach(a => {
@@ -144,8 +162,17 @@
     });
   });
 
-  if (toggle)   toggle.addEventListener('click', openMobile);
+  if (toggle) {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMobileNav();
+    });
+  }
   if (backdrop) backdrop.addEventListener('click', closeMobile);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) closeMobile();
+  });
 
   
   window.showPage = showPage;

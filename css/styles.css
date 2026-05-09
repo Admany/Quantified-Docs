@@ -78,7 +78,7 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.7;
+  opacity: 0.98;
 }
 
 .bg-stage {
@@ -91,12 +91,12 @@ body {
 .bg-grid {
   position: absolute;
   inset: -100%;
-  opacity: 0.28;
+  opacity: 0.42;
   background-image:
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.075) 1px, transparent 1px);
   background-size: 60px 60px;
-  animation: grid-drift 120s linear infinite;
+  animation: grid-drift 72s linear infinite;
 }
 .bg-glow {
   position: absolute;
@@ -108,65 +108,65 @@ body {
 .bg-glow-a {
   width: min(60vw, 560px); height: min(60vw, 560px);
   top: -15%; right: -10%;
-  background: rgba(255,255,255,0.055);
-  animation: orb-a 26s ease-in-out infinite;
+  background: rgba(255,255,255,0.11);
+  animation: orb-a 18s ease-in-out infinite;
 }
 .bg-glow-b {
   width: min(48vw, 440px); height: min(48vw, 440px);
   bottom: -8%; left: -14%;
-  background: rgba(255,255,255,0.04);
-  animation: orb-b 32s ease-in-out infinite;
+  background: rgba(255,255,255,0.085);
+  animation: orb-b 22s ease-in-out infinite;
   animation-delay: -14s;
 }
 .bg-glow-c {
   width: min(38vw, 340px); height: min(38vw, 340px);
   top: 40%; left: 36%;
-  background: rgba(255,255,255,0.028);
-  animation: orb-c 22s ease-in-out infinite;
+  background: rgba(255,255,255,0.065);
+  animation: orb-c 16s ease-in-out infinite;
   animation-delay: -8s;
 }
 .bg-sweep {
   position: absolute;
   inset: 0;
   background: linear-gradient(128deg,
-    transparent 0%, transparent 38%,
-    rgba(255,255,255,0.022) 50%,
-    transparent 62%, transparent 100%);
+    transparent 0%, transparent 32%,
+    rgba(255,255,255,0.06) 50%,
+    transparent 68%, transparent 100%);
   background-size: 200% 100%;
-  animation: bg-sweep 18s ease-in-out infinite;
+  animation: bg-sweep 12s ease-in-out infinite;
 }
 .bg-scanline {
   position: absolute;
   left: 0; right: 0;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(90deg,
-    transparent 0%, rgba(255,255,255,0.05) 20%,
-    rgba(230,232,238,0.1) 50%,
-    rgba(255,255,255,0.05) 80%, transparent 100%);
-  animation: scanline-crawl 12s linear infinite;
+    transparent 0%, rgba(255,255,255,0.1) 20%,
+    rgba(230,232,238,0.22) 50%,
+    rgba(255,255,255,0.09) 80%, transparent 100%);
+  animation: scanline-crawl 9s linear infinite;
   animation-delay: -3s;
 }
 .bg-scanline-2 {
   position: absolute;
   left: 0; right: 0;
-  height: 1px;
+  height: 2px;
   background: linear-gradient(90deg,
-    transparent, rgba(255,255,255,0.04), transparent);
-  animation: scanline-crawl 18s linear infinite;
+    transparent, rgba(255,255,255,0.08), transparent);
+  animation: scanline-crawl 14s linear infinite;
   animation-delay: -9s;
 }
 .bg-aurora {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 180px;
+  height: 220px;
   background: linear-gradient(90deg,
-    rgba(255,255,255,0.045), rgba(220,223,232,0.03),
-    rgba(255,255,255,0.05), rgba(200,205,218,0.025),
-    rgba(255,255,255,0.04));
+    rgba(255,255,255,0.09), rgba(220,223,232,0.065),
+    rgba(255,255,255,0.1), rgba(200,205,218,0.055),
+    rgba(255,255,255,0.085));
   background-size: 400% 100%;
-  animation: aurora-shift 30s ease infinite;
-  filter: blur(40px);
-  opacity: 0.55;
+  animation: aurora-shift 18s ease infinite;
+  filter: blur(36px);
+  opacity: 0.82;
 }
 .bg-vignette {
   position: absolute;
@@ -381,30 +381,55 @@ body {
   display: none;
   position: fixed;
   top: 12px; left: 12px;
-  z-index: 120;
-  width: 40px; height: 40px;
+  z-index: 1002;
+  width: 44px; height: 44px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-md);
   background: var(--surface);
   color: var(--text);
   align-items: center;
   justify-content: center;
-  font-size: 17px;
-  transition: background var(--t-fast), transform var(--t-fast);
+  font-size: 18px;
+  transition:
+    background var(--t-fast),
+    transform var(--t-fast),
+    border-color var(--t-fast),
+    box-shadow var(--t-fast),
+    color var(--t-fast);
   box-shadow: var(--shadow);
+  -webkit-tap-highlight-color: transparent;
 }
 .nav-toggle:active { transform: scale(0.93); }
 
+body.mobile-nav-open .nav-toggle {
+  border-color: rgba(200, 204, 218, 0.35);
+  background: rgba(22, 22, 26, 0.95);
+  color: var(--silver);
+}
+
 .nav-backdrop {
-  display: none;
+  display: block;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 40;
-  backdrop-filter: blur(3px);
-  animation: fadeIn 0.22s ease;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.52);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.26s cubic-bezier(0.32, 0.72, 0, 1),
+    visibility 0.26s step-end,
+    backdrop-filter 0.26s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.nav-backdrop.visible { display: block; }
+.nav-backdrop.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 0.26s cubic-bezier(0.32, 0.72, 0, 1),
+    visibility 0s step-start;
+}
 
 
 .content-wrapper {
@@ -858,7 +883,7 @@ li strong { color: var(--text); }
 }
 .expand summary::-webkit-details-marker { display: none; }
 .expand summary::before {
-  content: 'â€º';
+  content: '\203a ';
   font-size: 1rem;
   transition: transform var(--t-med) var(--ease-expo);
   display: inline-block;
@@ -1137,7 +1162,7 @@ li strong { color: var(--text); }
   background: rgba(200,205,218,0.05);
   border: 1px solid rgba(200,205,218,0.16);
 }
-.tip::before { content: 'â˜…'; color: rgba(200,210,230,0.65); }
+.tip::before { content: '\2605 '; color: rgba(200,210,230,0.65); }
 
 .hint {
   background: rgba(200,205,218,0.04);
@@ -1173,7 +1198,7 @@ li strong { color: var(--text); }
   border: 1px solid rgba(200,205,218,0.14);
 }
 .callout::before {
-  content: 'â€º';
+  content: '\203a ';
   font-size: 1.15rem;
   font-weight: 700;
   color: rgba(195,205,225,0.7);
@@ -1188,14 +1213,45 @@ li strong { color: var(--text); }
 
 @media (max-width: 960px) {
   .nav-toggle { display: flex; }
+
+  body.mobile-nav-open {
+    overflow: hidden;
+    touch-action: none;
+    overscroll-behavior: none;
+  }
+
+  .nav-backdrop {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
   .sidebar {
     position: fixed;
-    left: 0; top: 0; bottom: 0;
-    z-index: 50;
-    transform: translateX(-105%);
-    transition: transform 0.38s var(--ease-expo);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    max-width: min(var(--sidebar-w), 92vw);
+    width: var(--sidebar-w);
+    transform: translateX(-104%);
+    transition: transform 0.34s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: transform;
+    box-shadow: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
-  .sidebar.open { transform: translateX(0); box-shadow: var(--shadow-lg); }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow:
+      24px 0 64px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(255, 255, 255, 0.06);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background:
+      linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, transparent 38%),
+      linear-gradient(180deg, rgba(22, 22, 26, 0.99) 0%, rgba(8, 8, 10, 0.995) 100%);
+  }
+
   main {
     padding:
       max(var(--main-pad-y-start), 56px)
