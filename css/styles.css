@@ -230,7 +230,7 @@ body {
 .sidebar-inner {
   flex: 1;
   overflow-y: auto;
-  padding: var(--space-2) var(--space-3) var(--space-6);
+  padding: var(--space-2) var(--space-3) var(--space-4);
   scrollbar-width: thin;
   scrollbar-color: rgba(120,122,132,0.35) transparent;
 }
@@ -292,25 +292,29 @@ body {
 
 
 .nav-section {
-  padding: var(--space-3) 0 var(--space-2);
+  padding: 0;
+}
+
+.sidebar-inner > .nav-section {
+  margin-top: 4px;
 }
 
 .nav-label {
-  font-size: 0.62rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.1em;
   color: rgba(154,157,168,0.92);
   text-transform: uppercase;
-  padding: var(--space-2) var(--space-4) var(--space-1);
-  margin-bottom: 2px;
+  padding: 4px 12px 3px;
+  margin-bottom: 0;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-2);
-  margin: 0 var(--space-1);
+  padding: 5px var(--space-3) 5px var(--space-2);
+  margin: 0 2px;
   font-size: 0.875rem;
   color: rgba(208,211,220,0.76);
   border-radius: var(--radius-sm);
@@ -324,7 +328,6 @@ body {
   position: relative;
   cursor: pointer;
 }
-
 
 .nav-link .nav-icon {
   flex-shrink: 0;
@@ -466,6 +469,17 @@ main {
 .page.active > *:nth-child(5) { animation: reveal-up 0.4s  var(--ease-expo) 0.15s both; }
 .page.active > *:nth-child(6) { animation: reveal-up 0.38s var(--ease-expo) 0.17s both; }
 .page.active > *:nth-child(n+7) { animation: reveal-up 0.36s var(--ease-expo) 0.2s both; }
+
+/* License page: hero is under <header>, so direct-child h1 / lede rules never match */
+#license.page.active > .license-page-head {
+  animation: reveal-up 0.5s var(--ease-expo) both;
+}
+#license.page.active > .license-document-shell {
+  animation: reveal-up 0.45s var(--ease-expo) 0.08s both;
+}
+#license.page.active > .site-footer {
+  animation: reveal-up 0.36s var(--ease-expo) 0.16s both;
+}
 
 
 h1 {
@@ -822,6 +836,12 @@ li strong { color: var(--text); }
   .ad {
     box-shadow: 0 4px 20px rgba(0,0,0,0.35);
   }
+  .flow-row > .flow-step:nth-child(odd) {
+    animation: none !important;
+    background: var(--surface);
+    color: var(--text-dim);
+    border-color: var(--border-md);
+  }
 }
 
 
@@ -916,12 +936,25 @@ li strong { color: var(--text); }
   background: var(--surface);
   color: var(--text-dim);
 }
+.flow-row > .flow-step:nth-child(odd) {
+  background: #141414;
+  color: rgba(158, 160, 170, 0.92);
+  border-color: rgba(255, 255, 255, 0.12);
+  animation-duration: 12s;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
+  animation-iteration-count: infinite;
+}
+.flow-row > .flow-step:nth-child(1) { animation-name: journey-chip-build; }
+.flow-row > .flow-step:nth-child(3) { animation-name: journey-chip-normalize; }
+.flow-row > .flow-step:nth-child(5) { animation-name: journey-chip-schedule; }
+.flow-row > .flow-step:nth-child(7) { animation-name: journey-chip-execute; }
+.flow-row > .flow-step:nth-child(9) { animation-name: journey-chip-complete; }
+
 .flow-arrow {
   color: var(--text-muted);
   font-size: 1rem;
-  animation: float-y 3s ease-in-out infinite;
+  opacity: 0.65;
 }
-
 
 .page-note {
   font-size: 0.82rem;

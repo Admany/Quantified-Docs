@@ -119,12 +119,12 @@
     navLinks.forEach(a => {
       a.classList.toggle('active', a.dataset.page === id);
     });
-    
+
     const cw = document.querySelector('.content-wrapper');
     if (cw) cw.scrollTop = 0;
-    
+
     closeMobile();
-    
+
     history.replaceState(null, '', '#' + id);
   }
 
