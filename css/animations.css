@@ -1,0 +1,122 @@
+@keyframes grid-drift {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(-60px, -60px); }
+}
+
+@keyframes orb-a {
+  0%, 100% { transform: translate(0,    0)    scale(1);    opacity: 0.85; }
+  35%       { transform: translate(-5%, 7%)   scale(1.12); opacity: 0.65; }
+  70%       { transform: translate(3%,  -4%)  scale(0.9);  opacity: 1;    }
+}
+
+@keyframes orb-b {
+  0%, 100% { transform: translate(0, 0)   scale(1); }
+  50%      { transform: translate(6%, -5%) scale(1.1); }
+}
+
+@keyframes orb-c {
+  0%, 100% { transform: translate(0, 0);           opacity: 0.55; }
+  50%      { transform: translate(-9%, 7%) scale(1.2); opacity: 0.9;  }
+}
+
+@keyframes bg-sweep {
+  0%, 100% { background-position: 160%  0; }
+  50%       { background-position: -60% 0; }
+}
+
+@keyframes scanline-crawl {
+  0%   { transform: translateY(-8px); opacity: 0; }
+  5%   { opacity: 0.35; }
+  95%  { opacity: 0.35; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes aurora-shift {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
+}
+
+@keyframes logo-ring-spin {
+  to { stroke-dashoffset: -96; }
+}
+
+@keyframes logo-glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 3px rgba(255,255,255,0.12)); }
+  50%       { filter: drop-shadow(0 0 14px rgba(255,255,255,0.42)) drop-shadow(0 0 32px rgba(200,205,220,0.12)); }
+}
+
+@keyframes nav-indicator-grow {
+  from { height: 0; opacity: 0; }
+  to   { height: 16px; opacity: 1; }
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes reveal-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes page-slide-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+
+@keyframes shimmer-move {
+  0%   { background-position: -220% center; }
+  100% { background-position:  220% center; }
+}
+
+@keyframes h2-line-drift {
+  0%, 100% { transform: scaleX(1);    opacity: 0.4; }
+  50%       { transform: scaleX(1.04); opacity: 0.65; }
+}
+
+@keyframes card-lift-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+@keyframes code-cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes copy-success {
+  0%   { opacity: 0; transform: scale(0.8); }
+  20%  { opacity: 1; transform: scale(1);   }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes content-breathe {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.982; }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0);  }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes horizon-scan {
+  0%   { background-position: 0%    0; }
+  100% { background-position: -220% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:   0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration:  0.01ms !important;
+  }
+}

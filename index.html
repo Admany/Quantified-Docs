@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantified API Docs</title>
+<link rel="icon" type="image/png" sizes="334x334" href="favicon.png">
+<link rel="shortcut icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+
+<div class="bg-stage" aria-hidden="true">
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-a"></div>
+  <div class="bg-glow bg-glow-b"></div>
+  <div class="bg-glow bg-glow-c"></div>
+  <div class="bg-sweep"></div>
+  <div class="bg-scanline"></div>
+  <div class="bg-scanline-2"></div>
+  <div class="bg-aurora"></div>
+  <div class="bg-vignette"></div>
+</div>
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
+
+
+<div class="app">
+
+  
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="qapi-logo-wrap">
+        <img class="qapi-logo-img" src="quantifiedapi.png" alt="Quantified API logo" width="58" height="58">
+      </div>
+      <div class="logo-text-block">
+        <div class="logo-name">Quantified API</div>
+        <div class="logo-byline"><span class="logo-by-soft">By</span> <strong>BlackRift Studios</strong><span class="logo-by-soft">,</span> Admany</div>
+      </div>
+    </div>
+
+    <div class="sidebar-inner">
+
+      <div class="nav-section">
+        <div class="nav-label">Get started</div>
+        <a class="nav-link" data-page="intro" href="#intro">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+          <span class="nav-text">Introduction</span>
+        </a>
+        <a class="nav-link" data-page="quickstart" href="#quickstart">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+          <span class="nav-text">Quickstart</span>
+        </a>
+        <a class="nav-link" data-page="recipes" href="#recipes">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg></span>
+          <span class="nav-text">Recipes</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">Learn</div>
+        <a class="nav-link" data-page="architecture" href="#architecture">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
+          <span class="nav-text">Architecture</span>
+        </a>
+        <a class="nav-link" data-page="lifecycle" href="#lifecycle">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg></span>
+          <span class="nav-text">Task lifecycle</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">Primitives</div>
+        <a class="nav-link" data-page="compute" href="#compute">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+          <span class="nav-text">Compute</span>
+        </a>
+        <a class="nav-link" data-page="parallel" href="#parallel">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></span>
+          <span class="nav-text">Parallel</span>
+        </a>
+        <a class="nav-link" data-page="graph" href="#graph">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><path d="M12 8v8"/><circle cx="5" cy="19" r="2"/><path d="M5 17v-2a7 7 0 0 1 14 0v2"/><circle cx="19" cy="19" r="2"/></svg></span>
+          <span class="nav-text">Task graphs</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">System</div>
+        <a class="nav-link" data-page="keys" href="#keys">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></span>
+          <span class="nav-text">Keys &amp; identity</span>
+        </a>
+        <a class="nav-link" data-page="cache" href="#cache">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span>
+          <span class="nav-text">Caching</span>
+        </a>
+        <a class="nav-link" data-page="gpu" href="#gpu">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg></span>
+          <span class="nav-text">GPU routing</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">Reliability</div>
+        <a class="nav-link" data-page="errors" href="#errors">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+          <span class="nav-text">Errors &amp; policies</span>
+        </a>
+        <a class="nav-link" data-page="monitoring" href="#monitoring">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+          <span class="nav-text">Monitoring</span>
+        </a>
+        <a class="nav-link" data-page="config" href="#config">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg></span>
+          <span class="nav-text">Configuration</span>
+        </a>
+        <a class="nav-link" data-page="troubleshooting" href="#troubleshooting">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+          <span class="nav-text">Troubleshooting</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">Legal</div>
+        <a class="nav-link" data-page="license" href="#license">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span class="nav-text">BRSSLA V1.5</span>
+        </a>
+        <a class="nav-link" data-page="publishing" href="#publishing">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m16 17 7-7-7-7"/><path d="M3 21V3h13v13"/></svg></span>
+          <span class="nav-text">Publishing your mod</span>
+        </a>
+      </div>
+
+    </div>
+  </aside>
+
+  
+  <div class="content-wrapper">
+    <main>
+
+
+
+<section id="intro" class="page active">
+
+  <h1 class="silver-text">Hey, welcome to Quantified API! :D</h1>
+  <p class="lede">
+    So you're building a Minecraft mod and your async code is doing that fun thing where it works 90% of the time,
+    and the other 10% it just... vibes incorrectly. Threads fighting, futures vanishing, tick thread crying. xD<br><br>
+    Quantified API is a runtime layer that handles scheduling, threading, GPU compute, caching, and
+    observability. You write the logic. Quantified API figures out where and when to run it. ;]
+  </p>
+
+  <div class="card-grid card-grid--intro">
+    <div class="card-row-3">
+      <div class="card" onclick="showPage('quickstart')">
+        <div class="card-arrow">&#x2197;</div>
+        <h4>First 10 minutes</h4>
+        <p>Register your mod, submit your first <span class="ic">compute</span> and <span class="ic">parallel</span> task. It&rsquo;s genuinely easy.</p>
+      </div>
+      <div class="card" onclick="showPage('license')">
+        <div class="card-arrow">&#x2197;</div>
+        <h4>BRSSLA V1.5</h4>
+        <p>License details, what&rsquo;s allowed for end users and distributors, IP rules. Not scary, just read it. ;]</p>
+      </div>
+      <div class="card" onclick="showPage('architecture')">
+        <div class="card-arrow">&#x2197;</div>
+        <h4>How it actually works</h4>
+        <p>The internals are interesting! Handles, routers, async managers. Worth a read even if you don&rsquo;t need it immediately.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Okay but why does this exist</h2>
+  <p>
+    Mods love to bolt <span class="ic">CompletableFuture.runAsync</span> directly onto vanilla code paths.
+    That scatters work across unnamed thread pools, competes with the server tick, duplicates the same boilerplate
+    across every module, and eventually explodes when someone blocks on the main thread waiting for a future that
+    resolves slightly later than expected. And then the TPS graph goes brrrr downwards. xD
+  </p>
+  <p>
+    Quantified API gives you one central place for <strong>identity</strong> (per-mod handles so work is always attributed),
+    <strong>stable keys</strong> (deduplication and cache locality), <strong>routing</strong> (CPU vs GPU with honest
+    fallbacks), and <strong>observability</strong> (dashboard + telemetry so you can actually see what&rsquo;s happening).
+    You still write the math. Quantified API owns the plumbing.
+  </p>
+
+  <div class="tip">
+    Call <span class="ic">QuantifiedAPI.register(modId, displayName, version)</span> from your mod constructor or
+    a dedicated setup method, not lazily on first use. If the handle is missing when you call
+    <span class="ic">compute</span>, <span class="ic">parallel</span>, or <span class="ic">cache</span>,
+    you get an <span class="ic">IllegalStateException</span>. Just register early and forget about it :)
+  </div>
+
+  <h2>Pick the right tool for the job</h2>
+  <div class="table-wrap">
+    <table class="docs-table">
+      <thead>
+        <tr><th>What you need</th><th>What to use</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>One async result</td>
+          <td><span class="ic">QuantifiedAPI.compute(name)</span></td>
+          <td>Fluent builder. Supports GPU workloads with CPU fallback.</td>
+        </tr>
+        <tr>
+          <td>Many items in parallel</td>
+          <td><span class="ic">parallel(...).items(...).map(...)</span></td>
+          <td>Controlled fan-out, configurable failure policies.</td>
+        </tr>
+        <tr>
+          <td>Index-based loops</td>
+          <td><span class="ic">parallel(...).range(a, b).map(...)</span></td>
+          <td>Same engine, no intermediate list allocation.</td>
+        </tr>
+        <tr>
+          <td>Complex pipelines with deps</td>
+          <td><span class="ic">QuantifiedAPI.graph(modId, name)</span></td>
+          <td>DAG execution, <span class="ic">context.result(handle)</span> for wiring.</td>
+        </tr>
+        <tr>
+          <td>Cache expensive pure work</td>
+          <td><span class="ic">cache("bucket").get(key, loader)</span></td>
+          <td>TTL, size caps, optional disk persistence.</td>
+        </tr>
+        <tr>
+          <td>Fire-and-forget side effect</td>
+          <td><span class="ic">QuantifiedAPI.runAsync(name, () -&gt; ...)</span></td>
+          <td>Thin wrapper over <span class="ic">compute</span>, no return value.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="hint">
+    Prefer composing <span class="ic">CompletableFuture</span> with <span class="ic">thenApply</span> and
+    <span class="ic">exceptionally</span> instead of calling <span class="ic">.join()</span> on the server thread.
+    Blocking there shows up as lag. If you genuinely need to block in a safe window (world load, data fixer),
+    comment it in code review so the next person knows it&rsquo;s intentional.
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="quickstart" class="page">
+
+  <h1 class="silver-text">Let&rsquo;s get you up and running :DD</h1>
+  <p class="lede">
+    Three steps. Actually more like two and a half. You&rsquo;ll be submitting async jobs
+    within 5 minutes, I promise xD
+  </p>
+
+  <h2>Step 1 - Tell Quantified API your mod exists</h2>
+  <p>Call <span class="ic">register</span> from your mod constructor or early setup. Do it once. Done.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Java</span>
+      <button class="code-copy" type="button">copy</button>
+    </div>
+    <div class="code-block"><span class="t-cm">// In your mod constructor or setup event</span>
+<span class="t-kw">public class</span> <span class="t-ty">MyMod</span> {
+    <span class="t-kw">public</span> <span class="t-fn">MyMod</span>() {
+        <span class="t-cm">// Simple: pulls name + version from mods.toml automatically</span>
+        <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">register</span>(<span class="t-str">"mymod"</span>);
+
+        <span class="t-cm">// Or be explicit:</span>
+        <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">register</span>(<span class="t-str">"mymod"</span>, <span class="t-str">"My Cool Mod"</span>, <span class="t-str">"1.0.0"</span>);
+    }
+}</div>
+  </div>
+  <div class="warn">
+    Skip registration and your first <span class="ic">compute()</span> or <span class="ic">parallel()</span> call will throw
+    <span class="ic">IllegalStateException: QuantifiedAPI not initialized</span>. Which is annoying. So just register first. :)
+  </div>
+
+  <h2>Step 2 - Submit some work</h2>
+  <p>
+    CPU compute is the most common case. You get back a <span class="ic">CompletableFuture</span>.
+    Chain on it, don&rsquo;t block on it from the tick thread.
+  </p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Java - async compute</span>
+      <button class="code-copy" type="button">copy</button>
+    </div>
+    <div class="code-block"><span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">Digest</span>&gt; future = <span class="t-ty">QuantifiedAPI</span>
+    .<span class="t-fn">compute</span>(<span class="t-str">"chunkDigest"</span>)           <span class="t-cm">// task name (for metrics + keys)</span>
+    .<span class="t-fn">key</span>(dimId + <span class="t-str">"|"</span> + cx + <span class="t-str">"|"</span> + cz)  <span class="t-cm">// stable dedup key</span>
+    .<span class="t-fn">foreground</span>()                      <span class="t-cm">// or .background() for low priority</span>
+    .<span class="t-fn">submit</span>(() -&gt; <span class="t-fn">expensiveHash</span>(snapshot));
+
+future.<span class="t-fn">thenAccept</span>(digest -&gt; {
+    <span class="t-cm">// runs off the tick thread - safe!</span>
+    <span class="t-fn">storeResult</span>(digest);
+});</div>
+  </div>
+
+  <h2>Step 3 - Parallel over a list (the fun part xD)</h2>
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Java - parallel map</span>
+      <button class="code-copy" type="button">copy</button>
+    </div>
+    <div class="code-block"><span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">List</span>&lt;<span class="t-ty">VoxelMesh</span>&gt;&gt; meshes = <span class="t-ty">QuantifiedAPI</span>
+    .<span class="t-fn">parallel</span>(<span class="t-str">"bakeMeshes"</span>)
+    .<span class="t-fn">maxParallelism</span>(<span class="t-ty">Math</span>.<span class="t-fn">min</span>(<span class="t-num">8</span>, <span class="t-ty">Runtime</span>.<span class="t-fn">getRuntime</span>().<span class="t-fn">availableProcessors</span>()))
+    .<span class="t-fn">items</span>(partitions)
+    .<span class="t-fn">map</span>(p -&gt; <span class="t-fn">bake</span>(p))
+    .<span class="t-fn">submit</span>();
+
+<span class="t-cm">// Range-based (no list needed):</span>
+<span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">mapRange</span>(<span class="t-str">"processRows"</span>, <span class="t-num">0</span>, height, i -&gt; <span class="t-fn">processRow</span>(i));</div>
+  </div>
+
+  <h2>Handy shorthands</h2>
+  <ul>
+    <li><span class="ic">QuantifiedAPI.forEach(name, collection, consumer)</span> - parallel side effects, returns when all done.</li>
+    <li><span class="ic">QuantifiedAPI.mapOrdered(name, collection, mapper)</span> - parallel but preserves list order.</li>
+    <li><span class="ic">QuantifiedAPI.mapRange(name, start, end, fn)</span> - index-based parallel, no stream boilerplate.</li>
+    <li><span class="ic">QuantifiedAPI.runAsync(name, runnable)</span> - fire and forget, no result.</li>
+  </ul>
+
+  <div class="tip">
+    If your mod separates bootstrap from execution contexts (common in multi-module setups), use the explicit
+    <span class="ic">modId</span> overloads: <span class="ic">compute(modId, task)</span>,
+    <span class="ic">parallel(modId, task)</span>, <span class="ic">graph(modId, name)</span>.
+    That bypasses the <span class="ic">ThreadLocal</span> handle lookup and avoids confusion when helper classes are shared.
+  </div>
+
+  <h2>Before you ship, check these</h2>
+  <ul>
+    <li>Every hot-path task has a <strong>stable key</strong> when the same task name is reused across different inputs.</li>
+    <li>GPU code paths have a <strong>CPU fallback</strong> that produces equivalent output.</li>
+    <li>Your <span class="ic">parallel</span> failure policy matches what you actually want (<span class="ic">FAIL_FAST</span> vs <span class="ic">BEST_EFFORT</span>).</li>
+    <li>You&rsquo;ve opened <span class="ic">developerDashboard: true</span> at least once and poked around. It&rsquo;s cool ;]</li>
+  </ul>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="recipes" class="page">
+
+  <h1 class="silver-text">Copy-paste recipes :D</h1>
+  <p class="lede">
+    Real patterns from real use cases. Grab what fits, tweak the names, ship it.
+    These are tested shapes, not theoretical ones.
+  </p>
+
+  <details class="expand" open>
+    <summary>Recipe A - Worldgen chunk prefetch</summary>
+    <div class="expand-body">
+      <p>Precompute expensive per-chunk data off the tick thread. Cache the result so repeat access is free.</p>
+      <div class="code-wrap">
+        <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
+        <div class="code-block"><span class="t-kw">public</span> <span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">ChunkData</span>&gt; <span class="t-fn">prefetch</span>(<span class="t-ty">ChunkPos</span> pos, <span class="t-ty">ResourceKey</span>&lt;<span class="t-ty">Level</span>&gt; dim) {
+    <span class="t-ty">String</span> key = dim.location() + <span class="t-str">":"</span> + pos.x + <span class="t-str">","</span> + pos.z;
+
+    <span class="t-kw">return</span> <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">cache</span>(<span class="t-str">"chunkData"</span>)
+        .<span class="t-fn">ttl</span>(<span class="t-ty">Duration</span>.<span class="t-fn">ofMinutes</span>(<span class="t-num">10</span>))
+        .<span class="t-fn">maxEntries</span>(<span class="t-num">4096</span>)
+        .<span class="t-fn">get</span>(key, () -&gt; <span class="t-ty">QuantifiedAPI</span>
+            .<span class="t-fn">compute</span>(<span class="t-str">"chunkAnalysis"</span>)
+            .<span class="t-fn">key</span>(key)
+            .<span class="t-fn">background</span>()
+            .<span class="t-fn">submit</span>(() -&gt; <span class="t-fn">analyzeChunk</span>(pos, dim))
+        );
+}</div>
+      </div>
+    </div>
+  </details>
+
+  <details class="expand">
+    <summary>Recipe B - GPU kernel with honest CPU fallback</summary>
+    <div class="expand-body">
+      <p>Attempt GPU, fall back to CPU automatically. Quantified API picks the backend based on your hints and what the hardware supports.</p>
+      <div class="code-wrap">
+        <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
+        <div class="code-block"><span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">float[]</span>&gt; result = <span class="t-ty">QuantifiedAPI</span>
+    .<span class="t-fn">compute</span>(<span class="t-str">"terrainNoise"</span>)
+    .<span class="t-fn">vulkanWorkload</span>(ctx -&gt; ctx.<span class="t-fn">runShader</span>(<span class="t-str">"terrain.comp"</span>, inputBuffer))
+    .<span class="t-fn">openclWorkload</span>(ctx -&gt; ctx.<span class="t-fn">runKernel</span>(<span class="t-str">"terrain.cl"</span>, inputBuffer))
+    .<span class="t-fn">cpuFallback</span>(() -&gt; <span class="t-fn">computeOnCpu</span>(inputBuffer))   <span class="t-cm">// always provide this!</span>
+    .<span class="t-fn">complexity</span>(<span class="t-ty">QuantifiedCompute.Complexity</span>.<span class="t-ann">HEAVY</span>)
+    .<span class="t-fn">kind</span>(<span class="t-ty">QuantifiedCompute.WorkloadKind</span>.<span class="t-ann">SIMULATION</span>)
+    .<span class="t-fn">backendPreference</span>(<span class="t-ty">GpuBackendPreference</span>.<span class="t-ann">VULKAN_FIRST</span>)
+    .<span class="t-fn">submit</span>(null);  <span class="t-cm">// null = no extra CPU supplier, GPU paths + fallback cover it</span></div>
+      </div>
+    </div>
+  </details>
+
+  <details class="expand">
+    <summary>Recipe C - DAG pipeline (seed &rarr; transform &rarr; reduce)</summary>
+    <div class="expand-body">
+      <p>When Step B needs the output of Step A, use a graph. Nodes declare dependencies explicitly.</p>
+      <div class="code-wrap">
+        <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
+        <div class="code-block"><span class="t-ty">QuantifiedTaskGraph.Builder</span> g = <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">graph</span>(<span class="t-str">"lightingPipeline"</span>);
+
+<span class="t-cm">// Step A: load raw data</span>
+<span class="t-ty">QuantifiedTaskGraph.NodeHandle</span>&lt;<span class="t-ty">RawData</span>&gt; load =
+    g.<span class="t-fn">node</span>(<span class="t-str">"load"</span>, ctx -&gt; <span class="t-fn">loadRawData</span>());
+
+<span class="t-cm">// Step B: depends on A</span>
+<span class="t-ty">QuantifiedTaskGraph.NodeHandle</span>&lt;<span class="t-ty">ProcessedData</span>&gt; process =
+    g.<span class="t-fn">node</span>(<span class="t-str">"process"</span>, ctx -&gt; <span class="t-fn">process</span>(ctx.<span class="t-fn">result</span>(load)))
+     .<span class="t-fn">dependsOn</span>(load);
+
+<span class="t-cm">// Step C: depends on B, terminal result</span>
+<span class="t-ty">QuantifiedTaskGraph.NodeHandle</span>&lt;<span class="t-ty">LightMap</span>&gt; reduce =
+    g.<span class="t-fn">node</span>(<span class="t-str">"reduce"</span>, ctx -&gt; <span class="t-fn">reduce</span>(ctx.<span class="t-fn">result</span>(process)))
+     .<span class="t-fn">dependsOn</span>(process);
+
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">LightMap</span>&gt; future = <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">submitGraph</span>(g, reduce);</div>
+      </div>
+    </div>
+  </details>
+
+  <details class="expand">
+    <summary>Recipe D - Debounced background cache refresh</summary>
+    <div class="expand-body">
+      <p>Regenerate expensive computed data in the background whenever inputs change, without hammering the thread pool.</p>
+      <div class="code-wrap">
+        <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
+        <div class="code-block"><span class="t-kw">private volatile</span> <span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">SomeResult</span>&gt; pendingRefresh;
+
+<span class="t-kw">public void</span> <span class="t-fn">onInputChanged</span>() {
+    <span class="t-kw">if</span> (pendingRefresh != <span class="t-kw">null</span> &amp;&amp; !pendingRefresh.<span class="t-fn">isDone</span>()) {
+        <span class="t-kw">return</span>;  <span class="t-cm">// already refreshing, chill xD</span>
+    }
+    pendingRefresh = <span class="t-ty">QuantifiedAPI</span>
+        .<span class="t-fn">compute</span>(<span class="t-str">"bgRefresh"</span>)
+        .<span class="t-fn">background</span>()
+        .<span class="t-fn">submit</span>(this::<span class="t-fn">rebuildData</span>)
+        .<span class="t-fn">thenAccept</span>(result -&gt; <span class="t-ty">SomeCache</span>.<span class="t-fn">update</span>(result));
+}</div>
+      </div>
+    </div>
+  </details>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="architecture" class="page">
+
+  <h1 class="silver-text">How this actually works ;]</h1>
+  <p class="lede">
+    The architecture is pretty clean once you understand the three-layer model.
+    You only ever touch the top layer. The rest happens for you.
+  </p>
+
+  <h2>Three layers</h2>
+  <ul>
+    <li><strong>API layer</strong> (<span class="ic">QuantifiedAPI</span>, request builders) - the surface you code against. Fluent builders that describe what you want.</li>
+    <li><strong>Core runtime</strong> (<span class="ic">QuantifiedCoreRuntime</span>, async manager, GPU router) - decides how and where work actually runs. CPU thread pool, Vulkan queue, OpenCL context, whatever fits.</li>
+    <li><strong>Platform bridge</strong> (Forge 1.20.1 / 1.21.1 modules) - wires Quantified API into the Forge event lifecycle, mods.toml metadata, and server/client contexts.</li>
+  </ul>
+
+  <h2>Handles and mod identity</h2>
+  <p>
+    When you call <span class="ic">register</span>, Quantified API creates a <span class="ic">QuantifiedHandle</span> for your mod ID.
+    All subsequent calls (<span class="ic">compute</span>, <span class="ic">parallel</span>, <span class="ic">cache</span>)
+    go through that handle. It carries your mod ID, version, and a <span class="ic">ThreadLocal</span> reference so
+    you don&rsquo;t have to pass it everywhere.
+  </p>
+  <p>
+    If you&rsquo;re working across threads or sharing helpers between mods, use the explicit
+    <span class="ic">modId</span> overloads instead of relying on the thread-local. That&rsquo;s just safer and more obvious.
+  </p>
+
+  <h2>Request builders</h2>
+  <p>
+    <span class="ic">ComputeRequest</span>, <span class="ic">ParallelRequest</span>, <span class="ic">CacheRequest</span>,
+    and <span class="ic">QuantifiedTaskGraph.Builder</span> are all fluent builders. They don&rsquo;t do anything until you
+    call <span class="ic">submit()</span>. That means you can construct and pass them around, add conditions, etc.,
+    before actually kicking off the work. Pretty handy for conditional GPU paths.
+  </p>
+
+  <h2>GPU routing</h2>
+  <p>
+    When a <span class="ic">ComputeRequest</span> has Vulkan or OpenCL workloads attached, the GPU router
+    (<span class="ic">GpuBackendRouter</span>) checks device availability and your <span class="ic">GpuBackendPreference</span>.
+    If the preferred backend fails or isn&rsquo;t available, it falls through to the next option. If everything GPU-side
+    fails, it runs your <span class="ic">cpuFallback</span>. Always provide one!
+  </p>
+
+  <div class="callout">
+    The platform modules live in <span class="ic">platforms/forge-1.20.1</span> and <span class="ic">platforms/forge-1.21.1</span>.
+    The core logic that&rsquo;s platform-agnostic lives in <span class="ic">core/</span>. They&rsquo;re separate Gradle subprojects.
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="lifecycle" class="page">
+
+  <h1 class="silver-text">Task lifecycle</h1>
+  <p class="lede">
+    What actually happens between <span class="ic">.submit()</span> and your future completing?
+    Here&rsquo;s the full path.
+  </p>
+
+  <h2>The journey</h2>
+  <div class="flow-row">
+    <span class="flow-step">Build</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Normalize</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Schedule</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Execute</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Complete</span>
+  </div>
+
+  <ul>
+    <li><strong>Build:</strong> fluent setters collect your key, priority, thread-safety bit, timeout, and optional GPU workloads.</li>
+    <li><strong>Normalize:</strong> without GPU workloads, the request becomes a <span class="ic">QuantifiedTask</span> for the async manager. With GPU workloads, it becomes a <span class="ic">QuantifiedCompute</span> request with backend selection and fallback logic.</li>
+    <li><strong>Schedule:</strong> priority maps to an internal <span class="ic">PriorityTaskType</span>. <span class="ic">AUTO</span> becomes <span class="ic">OTHER</span>. <span class="ic">foreground()</span> and <span class="ic">CRITICAL</span> get the fast lane. <span class="ic">background()</span> is low priority and may be deferred.</li>
+    <li><strong>Execute:</strong> the async manager picks a thread from the pool, or the GPU router picks a compute queue. Exceptions propagate through the future, not as silent log lines (unless you lose the future reference, but that&rsquo;s on you xD).</li>
+    <li><strong>Complete:</strong> the <span class="ic">CompletableFuture</span> resolves. Your <span class="ic">thenApply</span>, <span class="ic">thenAccept</span>, etc. chains run. If it failed, <span class="ic">exceptionally</span> gets called.</li>
+  </ul>
+
+  <h2>Timeouts</h2>
+  <p>
+    You can set a per-task timeout with <span class="ic">.timeout(Duration)</span> on a <span class="ic">ComputeRequest</span>.
+    There&rsquo;s also a global default in the config (<span class="ic">taskTimeoutMs</span>, defaults to 60s).
+    Per-task overrides win. If a task times out, the future completes exceptionally.
+  </p>
+
+  <h2>Thread safety bit</h2>
+  <p>
+    <span class="ic">ComputeRequest.threadSafe(boolean)</span> is a hint to the scheduler. Default is <span class="ic">true</span>.
+    If you mark a task as not thread-safe, the scheduler may serialize it with other tasks sharing the same affinity key.
+    Use <span class="ic">affinityKey(String)</span> to group tasks that must not overlap.
+  </p>
+
+  <div class="hint">
+    For parallel tasks, each item&rsquo;s mapper function runs independently. The parent future completes when all items
+    are done (or fail, depending on your failure policy). Don&rsquo;t share mutable state between mapper invocations
+    without synchronization. Yes this sounds obvious, but you&rsquo;d be surprised ;]
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="compute" class="page">
+
+  <h1 class="silver-text">Compute - the workhorse</h1>
+  <p class="lede">
+    <span class="ic">QuantifiedAPI.compute(taskName)</span> is what you&rsquo;ll use most.
+    It&rsquo;s a fluent builder for a single async task that can optionally run on GPU.
+  </p>
+
+  <h2>Key ComputeRequest methods</h2>
+  <div class="table-wrap">
+    <table class="docs-table">
+      <thead><tr><th>Method</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ic">.key(String)</span></td><td>Stable dedup key. Tasks with the same key get the same hash-based ID. Use dimension + coords for world stuff.</td></tr>
+        <tr><td><span class="ic">.foreground()</span></td><td>High priority. For work the player will notice if it&rsquo;s late.</td></tr>
+        <tr><td><span class="ic">.background()</span></td><td>Low priority. For prewarming, analytics, anything that can wait.</td></tr>
+        <tr><td><span class="ic">.priority(ExecutionPriority)</span></td><td>Full control: AUTO, BACKGROUND, FOREGROUND, CRITICAL.</td></tr>
+        <tr><td><span class="ic">.timeout(Duration)</span></td><td>Per-task timeout. Overrides global config default.</td></tr>
+        <tr><td><span class="ic">.threadSafe(boolean)</span></td><td>Hint to scheduler. Default true.</td></tr>
+        <tr><td><span class="ic">.affinityKey(String)</span></td><td>Group tasks that must not run concurrently.</td></tr>
+        <tr><td><span class="ic">.vulkanWorkload(fn)</span></td><td>Vulkan compute path. Provide a <span class="ic">cpuFallback</span> too!</td></tr>
+        <tr><td><span class="ic">.openclWorkload(fn)</span></td><td>OpenCL path. Used as fallback to Vulkan when <span class="ic">VULKAN_FIRST</span>.</td></tr>
+        <tr><td><span class="ic">.cpuFallback(Supplier)</span></td><td>Always-safe path. Required if you have GPU workloads.</td></tr>
+        <tr><td><span class="ic">.complexity(Complexity)</span></td><td>SIMPLE, MODERATE, HEAVY, MASSIVE - affects cost model and GPU queue selection.</td></tr>
+        <tr><td><span class="ic">.kind(WorkloadKind)</span></td><td>GENERAL, VECTOR_MATH, MATRIX_MATH, SIMULATION, etc.</td></tr>
+        <tr><td><span class="ic">.backendPreference(GpuBackendPreference)</span></td><td>AUTO, VULKAN_FIRST, OPENCL_FIRST, CPU_ONLY.</td></tr>
+        <tr><td><span class="ic">.submit(Supplier&lt;T&gt;)</span></td><td>Kick it off. Returns <span class="ic">CompletableFuture&lt;T&gt;</span>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warn">
+    Set <span class="ic">complexity</span> and <span class="ic">kind</span> honestly. If you label everything
+    <span class="ic">MASSIVE</span>, small tasks will hog GPU queues meant for actual large workloads and things get slow.
+    Also that&rsquo;s just mean to the scheduler xD
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="parallel" class="page">
+
+  <h1 class="silver-text">Parallel - fan-out, done right</h1>
+  <p class="lede">
+    When you have a list (or a range) and you want to process every item concurrently with sane
+    failure handling and bounded concurrency. This is the thing.
+  </p>
+
+  <h2>Item-based</h2>
+  <div class="code-wrap">
+    <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
+    <div class="code-block"><span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">List</span>&lt;<span class="t-ty">Result</span>&gt;&gt; results = <span class="t-ty">QuantifiedAPI</span>
+    .<span class="t-fn">parallel</span>(<span class="t-str">"processItems"</span>)
+    .<span class="t-fn">maxParallelism</span>(<span class="t-num">4</span>)
+    .<span class="t-fn">failurePolicy</span>(<span class="t-ty">FailurePolicy</span>.<span class="t-ann">FAIL_FAST</span>)   <span class="t-cm">// or BEST_EFFORT</span>
+    .<span class="t-fn">items</span>(myList)
+    .<span class="t-fn">map</span>(item -&gt; <span class="t-fn">process</span>(item))
+    .<span class="t-fn">submit</span>();</div>
+  </div>
+
+  <h2>Range-based (no list allocation)</h2>
+  <div class="code-wrap">
+    <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
+    <div class="code-block"><span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">parallel</span>(<span class="t-str">"scanRows"</span>)
+    .<span class="t-fn">range</span>(<span class="t-num">0</span>, height)
+    .<span class="t-fn">map</span>(i -&gt; <span class="t-fn">scanRow</span>(i))
+    .<span class="t-fn">submit</span>();</div>
+  </div>
+
+  <h2>Failure policies</h2>
+  <ul>
+    <li><strong>FAIL_FAST</strong>: first exception cancels remaining work and fails the parent future. Use when consistency matters.</li>
+    <li><strong>BEST_EFFORT</strong>: keeps going even if some items fail. Errors are collected. Use for batch jobs where partial results are still useful.</li>
+  </ul>
+
+  <div class="tip">
+    During development, use <span class="ic">FAIL_FAST</span> so exceptions surface immediately and don&rsquo;t get swallowed.
+    Switch to <span class="ic">BEST_EFFORT</span> only when you deliberately want to tolerate partial failures in production.
+  </div>
+
+  <h2>ParallelRequest config fields</h2>
+  <div class="table-wrap">
+    <table class="docs-table">
+      <thead><tr><th>Field</th><th>Default</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ic">maxParallelism</span></td><td>CPU count</td><td>Bound this to avoid overwhelming the pool.</td></tr>
+        <tr><td><span class="ic">parallelQueueLimit</span></td><td>4096</td><td>Max queued slices. Protects memory if producers go rogue.</td></tr>
+        <tr><td><span class="ic">parallelMaxSlicesPerMod</span></td><td>4096</td><td>Per-mod slice cap.</td></tr>
+        <tr><td><span class="ic">failurePolicy</span></td><td>FAIL_FAST</td><td>See above.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="graph" class="page">
+
+  <h1 class="silver-text">Task graphs - DAG pipelines</h1>
+  <p class="lede">
+    When Step B needs the result of Step A, and Step C needs both. That&rsquo;s a graph.
+    Quantified API&rsquo;s <span class="ic">QuantifiedTaskGraph</span> lets you express dependencies explicitly and runs
+    them in the correct order automatically.
+  </p>
+
+  <h2>Building a graph</h2>
+  <div class="code-wrap">
+    <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
+    <div class="code-block"><span class="t-ty">QuantifiedTaskGraph.Builder</span> g = <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">graph</span>(<span class="t-str">"myPipeline"</span>);
+
+<span class="t-ty">NodeHandle</span>&lt;<span class="t-ty">A</span>&gt; a = g.<span class="t-fn">node</span>(<span class="t-str">"load"</span>,    ctx -&gt; <span class="t-fn">loadData</span>());
+<span class="t-ty">NodeHandle</span>&lt;<span class="t-ty">B</span>&gt; b = g.<span class="t-fn">node</span>(<span class="t-str">"process"</span>, ctx -&gt; <span class="t-fn">process</span>(ctx.<span class="t-fn">result</span>(a))).<span class="t-fn">dependsOn</span>(a);
+<span class="t-ty">NodeHandle</span>&lt;<span class="t-ty">C</span>&gt; c = g.<span class="t-fn">node</span>(<span class="t-str">"finalize"</span>,ctx -&gt; <span class="t-fn">finalize</span>(ctx.<span class="t-fn">result</span>(b))).<span class="t-fn">dependsOn</span>(b);
+
+<span class="t-cm">// Submit and get the terminal result</span>
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">C</span>&gt; result = <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">submitGraph</span>(g, c);
+
+<span class="t-cm">// Or get all node results as a Map&lt;String, Object&gt;</span>
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">Map</span>&lt;<span class="t-ty">String</span>, <span class="t-ty">Object</span>&gt;&gt; all = <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">submitGraph</span>(g);</div>
+  </div>
+
+  <h2>Tips</h2>
+  <ul>
+    <li><strong>Seed nodes</strong> have no <span class="ic">dependsOn</span>. They run immediately.</li>
+    <li><strong>Transform nodes</strong> use <span class="ic">ctx.result(handle)</span> to read a dependency&rsquo;s output.</li>
+    <li><strong>Fan-out / join:</strong> call <span class="ic">dependsOn</span> with multiple handles on one node to join several branches.</li>
+    <li>Graphs run nodes in topological order. Nodes with no data dependency on each other may run concurrently.</li>
+    <li>If any node throws, the graph future fails. Wire an <span class="ic">exceptionally</span> on the result future.</li>
+  </ul>
+
+  <div class="hint">
+    Graphs are great for pipelines where the number of stages is known at construction time.
+    For dynamic fan-out (variable number of items), use <span class="ic">parallel</span> instead.
+    Mix them: a graph node can submit a parallel task internally. xD
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="keys" class="page">
+
+  <h1 class="silver-text">Keys &amp; identity</h1>
+  <p class="lede">
+    Stable keys are how Quantified API deduplicates work and keeps cache locality sane.
+    They sound boring but they matter a lot in practice. Trust me on this one :)
+  </p>
+
+  <h2>What a key does</h2>
+  <p>
+    Every task has a key (a <span class="ic">long</span> hash). If two tasks with the same key are submitted before
+    the first completes, Quantified API can deduplicate them and return the same future. This saves work, avoids redundant
+    computation, and helps the caching layer know what to store where.
+  </p>
+  <p>
+    By default, the key is derived from <span class="ic">StableTaskKeys.of("compute", modId, taskName)</span>.
+    That&rsquo;s fine if every submission is different. But if you call the same task with different inputs
+    (e.g. different chunk coords), you need to include those inputs in the key.
+  </p>
+
+  <h2>Setting a meaningful key</h2>
+  <div class="code-wrap">
+    <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
+    <div class="code-block"><span class="t-cm">// Chunk-based key: includes dimension + coords</span>
+.<span class="t-fn">key</span>(dim.location() + <span class="t-str">":"</span> + chunkX + <span class="t-str">","</span> + chunkZ)
+
+<span class="t-cm">// Entity-based key: UUID + dimension is usually enough</span>
+.<span class="t-fn">key</span>(entity.<span class="t-fn">getStringUUID</span>() + <span class="t-str">":"</span> + dim.location())
+
+<span class="t-cm">// Asset key: namespaced resource path for pack reload safety</span>
+.<span class="t-fn">key</span>(resourceLocation.<span class="t-fn">toString</span>())
+
+<span class="t-cm">// Raw long if you have a stable numeric ID</span>
+.<span class="t-fn">key</span>((<span class="t-kw">long</span>) chunkX &lt;&lt; <span class="t-num">32</span> | (chunkZ &amp; <span class="t-num">0xFFFFFFFFL</span>))</div>
+  </div>
+
+  <h2>Affinty keys</h2>
+  <p>
+    <span class="ic">affinityKey(String)</span> is different. It groups tasks that must not overlap in execution.
+    Use it when your tasks write to shared mutable state that&rsquo;s keyed per-dimension or per-region.
+  </p>
+
+  <div class="warn">
+    Don&rsquo;t use object references (like <span class="ic">chunk.toString()</span> on a mutable object) as keys.
+    If the object state changes, you get different hashes for what should be the same key. Use stable IDs.
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="cache" class="page">
+
+  <h1 class="silver-text">Caching</h1>
+  <p class="lede">
+    Tiered caching with TTL, size caps, and optional disk persistence. For when you compute
+    something expensive once and want to reuse it without thinking about it.
+  </p>
+
+  <h2>Basic usage</h2>
+  <div class="code-wrap">
+    <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
+    <div class="code-block"><span class="t-cm">// Get from cache, compute if missing</span>
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">ExpensiveResult</span>&gt; result = <span class="t-ty">QuantifiedAPI</span>
+    .<span class="t-fn">cache</span>(<span class="t-str">"myBucket"</span>)
+    .<span class="t-fn">ttl</span>(<span class="t-ty">Duration</span>.<span class="t-fn">ofMinutes</span>(<span class="t-num">5</span>))
+    .<span class="t-fn">maxEntries</span>(<span class="t-num">1024</span>)
+    .<span class="t-fn">get</span>(cacheKey, () -&gt; <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">compute</span>(<span class="t-str">"recompute"</span>).<span class="t-fn">submit</span>(loader));
+
+<span class="t-cm">// Manual eviction on dimension unload</span>
+<span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">cache</span>(<span class="t-str">"myBucket"</span>).<span class="t-fn">remove</span>(keyForDimension);
+
+<span class="t-cm">// Nuke the whole bucket</span>
+<span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">cache</span>(<span class="t-str">"myBucket"</span>).<span class="t-fn">clear</span>();</div>
+  </div>
+
+  <h2>Practical advice</h2>
+  <ul>
+    <li>Set <span class="ic">maxEntries</span>. Without it, caches can grow unbounded and eat your heap. That&rsquo;s bad.</li>
+    <li>Pick TTLs tied to gameplay time, not wall time. &ldquo;5 minutes&rdquo; of server time is more meaningful than 5 real minutes.</li>
+    <li>Clear buckets on dimension unload events. Stale per-dimension data after unload is a memory leak.</li>
+    <li>Use separate buckets for logically separate data. Don&rsquo;t throw chunk data and entity data in the same bucket.</li>
+  </ul>
+
+  <div class="hint">
+    The <span class="ic">cache</span> loader is a <span class="ic">Supplier&lt;CompletableFuture&lt;T&gt;&gt;</span>.
+    That means the loader itself can submit async work. Cache + compute stack cleanly together for prefetch patterns.
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="gpu" class="page">
+
+  <h1 class="silver-text">GPU routing</h1>
+  <p class="lede">
+    Vulkan-first, OpenCL as fallback, honest CPU escape hatch. Quantified API figures out what&rsquo;s available
+    at runtime and routes accordingly. You just describe what you want.
+  </p>
+
+  <h2>How the router works</h2>
+  <p>
+    When you call <span class="ic">submit()</span> on a <span class="ic">ComputeRequest</span> with GPU workloads,
+    the <span class="ic">GpuBackendRouter</span> checks:
+  </p>
+  <ol>
+    <li>Is Vulkan available and initialized? If yes and preference is <span class="ic">VULKAN_FIRST</span> or <span class="ic">AUTO</span>, try Vulkan.</li>
+    <li>If Vulkan fails or is unavailable, try OpenCL if you provided an OpenCL workload.</li>
+    <li>If both GPU paths fail or are unavailable, fall back to your <span class="ic">cpuFallback</span>.</li>
+    <li>If no fallback is provided and GPU fails, the future completes exceptionally.</li>
+  </ol>
+
+  <div class="danger">
+    Always provide a <span class="ic">cpuFallback</span> when using GPU workloads. If the player&rsquo;s GPU
+    doesn&rsquo;t support your shader, or Vulkan probe fails, or drivers are weird (and drivers are ALWAYS weird),
+    you need somewhere to land. No fallback = mod breaks on some hardware. :((
+  </div>
+
+  <h2>Backend preferences</h2>
+  <div class="table-wrap">
+    <table class="docs-table">
+      <thead><tr><th>Preference</th><th>Behavior</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ic">AUTO</span></td><td>Quantified API decides based on device capabilities and workload hints.</td></tr>
+        <tr><td><span class="ic">VULKAN_FIRST</span></td><td>Try Vulkan, then OpenCL, then CPU.</td></tr>
+        <tr><td><span class="ic">OPENCL_FIRST</span></td><td>Try OpenCL first, then CPU. Useful for wider compat.</td></tr>
+        <tr><td><span class="ic">CPU_ONLY</span></td><td>Skip GPU entirely. Handy for debugging or server-side-only paths.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Vulkan probe</h2>
+  <p>
+    Quantified API runs a Vulkan probe at startup to check device capabilities. Probe results live in
+    <span class="ic">quantified/embedded/vulkanProbe/</span> inside the mod resources.
+    The actual shaders (GLSL compute, compiled to SPIR-V) are in
+    <span class="ic">quantified/shaders/src/vulkan/</span>.
+  </p>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="errors" class="page">
+
+  <h1 class="silver-text">Errors &amp; failure policies</h1>
+  <p class="lede">
+    Exceptions don&rsquo;t get swallowed in Quantified API. They propagate through the future chain.
+    Here&rsquo;s how to handle them properly without crying.
+  </p>
+
+  <h2>The golden rule</h2>
+  <p>
+    Always keep a reference to your futures and always attach an <span class="ic">exceptionally</span> or
+    <span class="ic">handle</span> somewhere in the chain. If you fire-and-forget a future and it fails silently,
+    that&rsquo;s on you. Quantified API surfaces the error, you just need to listen.
+  </p>
+  <div class="code-wrap">
+    <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
+    <div class="code-block"><span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">compute</span>(<span class="t-str">"riskyWork"</span>)
+    .<span class="t-fn">submit</span>(() -&gt; <span class="t-fn">doThing</span>())
+    .<span class="t-fn">thenAccept</span>(result -&gt; <span class="t-fn">useResult</span>(result))
+    .<span class="t-fn">exceptionally</span>(ex -&gt; {
+        <span class="t-ty">LOGGER</span>.<span class="t-fn">error</span>(<span class="t-str">"riskyWork failed: {}"</span>, ex.<span class="t-fn">getMessage</span>());
+        <span class="t-kw">return null</span>;
+    });</div>
+  </div>
+
+  <h2>Parallel failure policies</h2>
+  <ul>
+    <li><strong>FAIL_FAST:</strong> first exception cancels remaining work. Future fails. Great for development, good for consistent batch operations.</li>
+    <li><strong>BEST_EFFORT:</strong> continues even if some items fail. Use for batch jobs where partial results are acceptable. Check the result carefully.</li>
+  </ul>
+
+  <div class="warn">
+    With <span class="ic">BEST_EFFORT</span> on parallel tasks, individual item failures may be swallowed if you don&rsquo;t
+    inspect the combined result object. Switch to <span class="ic">FAIL_FAST</span> during development to catch
+    exceptions early.
+  </div>
+
+  <h2>IllegalStateException</h2>
+  <p>
+    You get this if you call <span class="ic">compute</span>, <span class="ic">parallel</span>, or <span class="ic">cache</span>
+    before <span class="ic">register</span>. The fix is always the same: register earlier. Put it in your mod constructor.
+    It takes one line. xD
+  </p>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="monitoring" class="page">
+
+  <h1 class="silver-text">Monitoring &amp; telemetry</h1>
+  <p class="lede">
+    Quantified API ships with a built-in webpanel and metrics system. Turn it on, poke around,
+    and actually see what your async code is doing. It&rsquo;s really useful, I promise :D
+  </p>
+
+  <h2>Developer dashboard</h2>
+  <p>
+    Set <span class="ic">"developerDashboard": true</span> in the config to enable it. The dashboard runs as a
+    local HTTP server (port configurable, default something sensible). Open it in a browser while the game is running.
+  </p>
+  <p>
+    You&rsquo;ll see: task throughput, queued work, GPU metrics (if applicable), per-mod stats, error rates,
+    and timing histograms. It&rsquo;s actually kind of cool to watch in real time while stress testing.
+  </p>
+
+  <h2>Developer flags</h2>
+  <div class="table-wrap">
+    <table class="docs-table">
+      <thead><tr><th>Flag</th><th>What it shows</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ic">developerDashboard</span></td><td>Enable the web panel.</td></tr>
+        <tr><td><span class="ic">developerTimeline</span></td><td>Per-task operation timelines (super useful for debugging slow paths).</td></tr>
+        <tr><td><span class="ic">developerReplay</span></td><td>Diagnostic replay tooling.</td></tr>
+        <tr><td><span class="ic">developerStressTest</span></td><td>Synthetic pressure testing. Off in prod, obviously.</td></tr>
+        <tr><td><span class="ic">debugShowTimings</span></td><td>Log task timings to console.</td></tr>
+        <tr><td><span class="ic">debugShowThreading</span></td><td>Log thread assignment info.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Metrics export</h2>
+  <p>
+    <span class="ic">enableMetrics</span>, <span class="ic">exportMetricsToFile</span>,
+    <span class="ic">metricsExportPath</span>, and <span class="ic">metricsIntervalSeconds</span> control
+    persistent telemetry. Useful for post-session analysis or tracking performance over time.
+  </p>
+
+  <div class="callout">
+    Leave debug flags off in production. <span class="ic">debugShowTimings</span> especially can spam logs
+    on busy servers. Enable them in a test world, grab what you need, and turn them off before shipping. ;]
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="config" class="page">
+
+  <h1 class="silver-text">Configuration reference</h1>
+  <p class="lede">
+    Everything lives in <span class="ic">quantified_config.json</span>. The defaults are sane.
+    Here&rsquo;s what&rsquo;s actually worth tweaking.
+  </p>
+
+  <h2>Thread pools</h2>
+  <div class="table-wrap">
+    <table class="docs-table">
+      <thead><tr><th>Field</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ic">asyncThreadPoolSize</span></td><td>Core thread pool size. Defaults to CPU count. Don&rsquo;t crank this too high on shared servers.</td></tr>
+        <tr><td><span class="ic">maxQueuedTasks</span></td><td>Max queued before rejection. Watch metrics near capacity.</td></tr>
+        <tr><td><span class="ic">maxParallelism</span></td><td>Global parallel ceiling. Per-task overrides win.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>GPU</h2>
+  <div class="table-wrap">
+    <table class="docs-table">
+      <thead><tr><th>Field</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ic">enableGpu</span></td><td>Master toggle. Set false to force CPU-only mode globally.</td></tr>
+        <tr><td><span class="ic">gpuBackendPreference</span></td><td>Global default backend preference. Per-task overrides win.</td></tr>
+        <tr><td><span class="ic">gpuMaxConcurrent</span></td><td>Concurrent GPU tasks. Too high = GPU stalls; too low = underutilized.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Caching</h2>
+  <div class="table-wrap">
+    <table class="docs-table">
+      <thead><tr><th>Field</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ic">defaultCacheTtlSeconds</span></td><td>Global TTL default. Per-bucket <span class="ic">.ttl()</span> calls override this.</td></tr>
+        <tr><td><span class="ic">defaultCacheMaxEntries</span></td><td>Global max entries per bucket. Per-bucket <span class="ic">.maxEntries()</span> overrides.</td></tr>
+        <tr><td><span class="ic">enableDiskPersistence</span></td><td>Persist certain caches across restarts. Needs careful key design.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Safety</h2>
+  <div class="table-wrap">
+    <table class="docs-table">
+      <thead><tr><th>Field</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ic">taskTimeoutMs</span></td><td>Global timeout, default 60s. Per-task <span class="ic">.timeout(Duration)</span> overrides.</td></tr>
+        <tr><td><span class="ic">enableSecurityChecks</span></td><td>Input validation for untrusted environments.</td></tr>
+        <tr><td><span class="ic">validateTaskInputs</span></td><td>Null/bounds checks on task payloads.</td></tr>
+        <tr><td><span class="ic">sandboxExternalCalls</span></td><td>Extra isolation for code calling external systems.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <details class="expand">
+    <summary>Debug + experimental flags</summary>
+    <div class="expand-body">
+      <p>
+        <span class="ic">debug</span>, <span class="ic">debugShowTimings</span>, <span class="ic">debugShowThreading</span>,
+        <span class="ic">debugSaveToFile</span> all massively increase log volume. Enable only for focused investigations.
+        Experimental flags (<span class="ic">experimentalAsyncBatching</span>, etc.) ship <span class="ic">false</span>
+        by default and may change across versions.
+      </p>
+    </div>
+  </details>
+
+  <div class="hint">
+    Dashboard options: <span class="ic">developerDashboard</span>, <span class="ic">developerDashboardAuth</span>,
+    and session timeout live in the same config. If you enable auth, pair it with HTTPS on non-loopback interfaces.
+    Exposing an unauthed HTTP server on a public server is a bad idea and you know it xD
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="troubleshooting" class="page">
+
+  <h1 class="silver-text">Troubleshooting</h1>
+  <p class="lede">
+    The issues that actually come up. Quick answers, no fluff.
+  </p>
+
+  <details class="expand" open>
+    <summary>&ldquo;QuantifiedAPI not initialized&rdquo;</summary>
+    <div class="expand-body">
+      <p>
+        You called <span class="ic">compute</span>/<span class="ic">parallel</span>/<span class="ic">cache</span> before
+        <span class="ic">register</span>, OR you lost the <span class="ic">ThreadLocal</span> context (common in cross-mod
+        helper classes or static initializers). Fix: register as early as possible (mod constructor), and use the
+        explicit <span class="ic">modId</span> overloads in helpers. Really that&rsquo;s it. xD
+      </p>
+    </div>
+  </details>
+
+  <details class="expand">
+    <summary>TPS drops after adding GPU workloads</summary>
+    <div class="expand-body">
+      <p>
+        GPU path might be synchronizing too eagerly or stalling on buffer uploads. Check the dashboard GPU pressure
+        metrics. Also verify you&rsquo;re not accidentally calling blocking OpenGL/LWJGL operations from async threads
+        (that&rsquo;ll go badly). Reduce <span class="ic">gpuMaxConcurrent</span> if the GPU is overwhelmed. Check
+        fallback paths with <span class="ic">CPU_ONLY</span> mode to confirm the issue is GPU-specific.
+      </p>
+    </div>
+  </details>
+
+  <details class="expand">
+    <summary>Parallel map seems to silently &ldquo;lose&rdquo; errors</summary>
+    <div class="expand-body">
+      <p>
+        You&rsquo;re using <span class="ic">BEST_EFFORT</span> and not inspecting the result for partial failures.
+        Switch to <span class="ic">FAIL_FAST</span> during development. In production with <span class="ic">BEST_EFFORT</span>,
+        check the combined result object for per-item errors.
+      </p>
+    </div>
+  </details>
+
+  <details class="expand">
+    <summary>Caches growing without bound</summary>
+    <div class="expand-body">
+      <p>
+        You forgot <span class="ic">maxEntries</span> or your TTL is way too long. Also check that you&rsquo;re calling
+        <span class="ic">cache.clear()</span> or <span class="ic">cache.remove(key)</span> on dimension unload events.
+        Per-dimension data that survives dimension unload is a memory leak.
+      </p>
+    </div>
+  </details>
+
+  <details class="expand">
+    <summary>Future never completes</summary>
+    <div class="expand-body">
+      <p>
+        Check if your supplier or mapper is blocking indefinitely (e.g. waiting for a lock that&rsquo;s held by the main
+        thread, which is waiting for YOUR future). Classic deadlock. Use <span class="ic">.timeout(Duration)</span>
+        to surface this instead of hanging. Enable <span class="ic">debugShowTimings</span> to see which tasks are stuck.
+      </p>
+    </div>
+  </details>
+
+  <div class="callout">
+    When filing a bug: grab a dashboard export, the relevant section of <span class="ic">logs/latest.log</span>,
+    your Quantified API version string, and your config file. For GPU issues, also grab the GPU diagnostics section from the dashboard.
+    Stack trace alone is usually not enough context. ;]
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="publishing" class="page">
+
+  <h1 class="silver-text">Publishing your mod</h1>
+  <p class="lede">
+    If Quantified API is on your classpath as a real dependency - not just mentioned in readme - BRSSLA v1.5 treats
+    <em>your mod alone</em> in a deliberately open way when it comes to commercial distribution.
+  </p>
+
+  <p>
+    In plain terms: when you ship a mod that properly depends on Quantified API, you generally do <strong>not</strong>
+    need a separate commercial-license deal with BlackRift Studios just to sell your mod or offer paid access to builds.
+    Commercial rights attach to <strong>that dependent mod project</strong> so teams can monetize work they built on top
+    of the API without negotiating a bespoke contract for vanilla Quantified API availability.
+  </p>
+
+  <p>
+    The scope stays narrow on purpose. It does not hand you blanket rights over Quantified API itself: you still cannot
+    relicense the library wholesale, bundle its source outside what the agreement allows, or stretch this carve-out onto
+    every downstream fork or unrelated product. Grants that apply specifically to dependents may also be spelled out further
+    in the repository <strong>readme</strong> - read those lines before cutting a trailer or storefront page.
+  </p>
+
+  <p>
+    The canonical contract text always lives alongside the codebase. Open the <span class="ic">LICENSE</span> file and the
+    current readme on GitHub for the wording that binds you at release time - summaries here are helpers, not replacements.
+    If anything on this microsite conflicts with the master BRSSLA text, assume the repo copy wins.
+  </p>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="license" class="page">
+
+  <header class="license-page-head">
+    <div class="license-head-top">
+      <span class="license-eyebrow">Quantified API</span>
+      <a class="license-github-link" href="https://github.com/Admany/Quantified-API/blob/master/LICENSE" target="_blank" rel="noopener" aria-label="View license on GitHub">
+        <span>View on</span>
+        <svg class="license-github-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M12 .5C5.649.5.5 5.649.5 12a11.5 11.5 0 0 0 7.86 10.913c.575.106.785-.25.785-.555 0-.274-.01-1-.016-1.963-3.198.695-3.873-1.54-3.873-1.54-.523-1.328-1.277-1.682-1.277-1.682-1.044-.714.08-.699.08-.699 1.154.08 1.761 1.185 1.761 1.185 1.026 1.758 2.692 1.25 3.348.955.104-.743.402-1.25.73-1.537-2.553-.29-5.238-1.277-5.238-5.684 0-1.255.448-2.282 1.183-3.086-.118-.29-.513-1.458.112-3.04 0 0 .965-.309 3.162 1.179a11.01 11.01 0 0 1 5.758 0c2.195-1.488 3.158-1.18 3.158-1.18.627 1.583.232 2.751.114 3.041.737.804 1.182 1.831 1.182 3.086 0 4.418-2.69 5.39-5.253 5.675.413.355.78 1.054.78 2.125 0 1.534-.014 2.771-.014 3.148 0 .308.207.666.79.553A11.503 11.503 0 0 0 23.5 12C23.5 5.649 18.351.5 12 .5Z"/>
+        </svg>
+      </a>
+    </div>
+    <h1 class="license-doc-heading silver-text">BlackRift Studios Software License Agreement</h1>
+  </header>
+
+  <div class="license-document-shell">
+    <div class="license-document" id="brssla-full-text">
+      <div class="license-meta">
+        <div class="license-meta__row">
+          <span class="license-meta__label">Version</span>
+          <span class="license-meta__value">1.5</span>
+        </div>
+        <div class="license-meta__row">
+          <span class="license-meta__label">Holder</span>
+          <span class="license-meta__value">&copy; BlackRift Studios - All rights reserved</span>
+        </div>
+        <div class="license-meta__row">
+          <span class="license-meta__label">Founder</span>
+          <span class="license-meta__value">Admany</span>
+        </div>
+      </div>
+
+      <div class="license-lead">
+        <h2>Overview</h2>
+        <p>This Software License Agreement ("Agreement") governs the use, distribution, and modification of any software, mod, plugin, library, API, binary, source code, or related material provided by BlackRift Studios ("the Software").</p>
+        <p>This Agreement distinguishes between:</p>
+        <ol class="license-inline-list">
+          <li>End Users (players and individuals)</li>
+          <li>Distributors (modpacks, large-scale bundles, or hosted platforms)</li>
+        </ol>
+        <p>The intent of this license is to protect intellectual property and regulate large-scale commercial distributions. It is not intended to restrict normal users or standard gameplay.</p>
+      </div>
+
+      <article class="license-part">
+        <header class="license-part__head">
+          <span class="license-part__eyebrow">Part I</span>
+          <h2>End User License</h2>
+        </header>
+        <section class="license-clause">
+          <h3>1. Acceptance</h3>
+          <p>By downloading, installing, or using the Software, you agree to be bound by this Agreement.</p>
+          <p>If you do not agree, you must not use the Software.</p>
+        </section>
+        <section class="license-clause">
+          <h3>2. Permitted Use</h3>
+          <p>End Users may:</p>
+          <ul class="license-list">
+            <li>Use the Software for personal gameplay</li>
+            <li>Use the Software in private or public servers</li>
+            <li>Include the Software in modpacks below the commercial threshold</li>
+            <li>Share the unmodified official version without payment</li>
+            <li>Analyze publicly released source code for educational purposes</li>
+          </ul>
+        </section>
+        <section class="license-clause">
+          <h3>3. No Impact on Normal Users</h3>
+          <p>This license does not:</p>
+          <ul class="license-list">
+            <li>Charge individual players</li>
+            <li>Restrict normal gameplay</li>
+            <li>Disable features for ordinary users</li>
+            <li>Interfere with small non-commercial modpacks</li>
+          </ul>
+          <p>Enforcement mechanisms apply only to non-compliant large-scale commercial distributions.</p>
+        </section>
+      </article>
+
+      <article class="license-part">
+        <header class="license-part__head">
+          <span class="license-part__eyebrow">Part II</span>
+          <h2>Distributor License</h2>
+        </header>
+        <section class="license-clause">
+          <h3>4. Standard Distribution</h3>
+          <p>A bundled distribution modpack or platform bundle is permitted only when distributed through Modrinth or CurseForge.</p>
+          <p>Distribution on platforms other than Modrinth or CurseForge requires explicit written permission from BlackRift Studios.</p>
+          <p>Such distribution is considered non-commercial unless it involves direct monetization, paid access, revenue sharing, corporate backing, or enterprise deployment.</p>
+        </section>
+        <section class="license-clause">
+          <h3>5. Large Scale Distribution Review</h3>
+          <p>If a bundled distribution exceeds 100,000 total downloads across all platforms, BlackRift Studios may initiate a review process to ensure compliance with this Agreement.</p>
+          <p>Exceeding this threshold does not automatically classify the distribution as commercial.</p>
+          <p>Commercial licensing requirements apply only if the distribution involves monetization, significant revenue generation, corporate backing, or paid access models.</p>
+        </section>
+        <section class="license-clause">
+          <h3>6. Commercial License Requirement</h3>
+          <p>If a distribution is determined to be commercial under Section 5, the distributor must request a Commercial License within three calendar days of receiving written notice from BlackRift Studios.</p>
+          <p>Failure to comply constitutes a material breach.</p>
+        </section>
+      </article>
+
+      <article class="license-part">
+        <header class="license-part__head">
+          <span class="license-part__eyebrow">Part III</span>
+          <h2>Intellectual Property Protection</h2>
+        </header>
+        <section class="license-clause">
+          <h3>8. Ownership</h3>
+          <p>The Software remains the sole intellectual property of BlackRift Studios.</p>
+          <p>No ownership rights are transferred under this Agreement.</p>
+        </section>
+        <section class="license-clause">
+          <h3>9. Redistribution Restrictions</h3>
+          <p>Without explicit written permission, you may not:</p>
+          <ul class="license-list">
+            <li>Re-upload the Software to unauthorized platforms</li>
+            <li>Rebrand the Software under a different name</li>
+            <li>Remove or alter author credits</li>
+            <li>Present modified versions as original work</li>
+            <li>Claim the Software or its systems as your own</li>
+          </ul>
+        </section>
+        <section class="license-clause">
+          <h3>10. Anti-Modification and Anti-Reverse Engineering</h3>
+          <p>Except where prohibited by law, you may not:</p>
+          <ul class="license-list">
+            <li>Reverse engineer the Software</li>
+            <li>Decompile or disassemble binaries</li>
+            <li>Circumvent obfuscation or protection systems</li>
+            <li>Bypass licensing or enforcement mechanisms</li>
+            <li>Modify the Software to remove attribution</li>
+            <li>Create derivative works intended to replicate or replace the Software's protected systems</li>
+          </ul>
+          <p>Any attempt to bypass enforcement systems constitutes a severe breach of this Agreement.</p>
+        </section>
+        <section class="license-clause">
+          <h3>11. Copyright Enforcement and DMCA</h3>
+          <p>Unauthorized redistribution, rebranding, code theft, or misrepresentation constitutes copyright infringement.</p>
+          <p>BlackRift Studios reserves the full right to:</p>
+          <ul class="license-list">
+            <li>Issue DMCA takedown notices</li>
+            <li>Contact hosting providers</li>
+            <li>Request removal from platforms</li>
+            <li>Pursue civil legal action where applicable</li>
+          </ul>
+        </section>
+      </article>
+
+      <article class="license-part">
+        <header class="license-part__head">
+          <span class="license-part__eyebrow">Part IV</span>
+          <h2>Enforcement</h2>
+        </header>
+        <section class="license-clause">
+          <h3>12. Blacklisting and Functional Limitation</h3>
+          <p>If a distributor exceeds the commercial threshold and fails to obtain a required license within the compliance window, BlackRift Studios may:</p>
+          <ul class="license-list">
+            <li>Blacklist the distribution</li>
+            <li>Limit or disable the Software's own features</li>
+          </ul>
+          <p>Enforcement measures will:</p>
+          <ul class="license-list">
+            <li>Not crash the game</li>
+            <li>Not corrupt saves or worlds</li>
+            <li>Not interfere with unrelated gameplay</li>
+            <li>Only affect the Software's own functionality</li>
+          </ul>
+          <div class="license-callout"><strong>Intent:</strong> The goal of enforcement is compliance - not disruption.</div>
+        </section>
+        <section class="license-clause">
+          <h3>13. Anti-Circumvention</h3>
+          <p>Any attempt to disable, modify, interfere with, or bypass enforcement systems is strictly prohibited.</p>
+        </section>
+      </article>
+
+      <article class="license-part">
+        <header class="license-part__head">
+          <span class="license-part__eyebrow">Part V</span>
+          <h2>General Provisions</h2>
+        </header>
+        <section class="license-clause">
+          <h3>14. Disclaimer</h3>
+          <p>The Software is provided "as is" without warranty of any kind, express or implied.</p>
+        </section>
+        <section class="license-clause">
+          <h3>15. Limitation of Liability</h3>
+          <p>BlackRift Studios shall not be liable for any damages arising from the use or inability to use the Software.</p>
+        </section>
+        <section class="license-clause">
+          <h3>16. Termination</h3>
+          <p>This Agreement automatically terminates upon violation.</p>
+          <p>All rights to use the Software cease immediately.</p>
+        </section>
+        <section class="license-clause">
+          <h3>17. Amendments</h3>
+          <p>BlackRift Studios reserves the right to modify this Agreement at any time.</p>
+          <p>Continued use of the Software constitutes acceptance of the updated terms.</p>
+        </section>
+        <section class="license-clause">
+          <h3>Licensing Inquiries</h3>
+          <p>For licensing inquiries, contact BlackRift Studios through official communication channels.</p>
+        </section>
+      </article>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+    </main>
+  </div>
+
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
