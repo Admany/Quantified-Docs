@@ -411,7 +411,7 @@ body.mobile-nav-open .nav-toggle {
   display: block;
   position: fixed;
   inset: 0;
-  z-index: 999;
+  z-index: 998;
   background: rgba(0, 0, 0, 0.52);
   opacity: 0;
   visibility: hidden;
@@ -439,6 +439,8 @@ body.mobile-nav-open .nav-toggle {
   overflow-y: auto;
   overflow-x: hidden;
   animation: content-breathe 20s ease-in-out infinite;
+  position: relative;
+  z-index: 0;
 }
 
 main {
