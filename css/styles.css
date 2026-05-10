@@ -1312,7 +1312,7 @@ li strong { color: var(--text); }
   background: rgba(255,185,95,0.04);
   border: 1px solid rgba(255,185,95,0.22);
 }
-.warn::before { content: 'âš '; color: rgba(240,175,90,0.8); }
+.warn::before { content: '\26A0'; color: rgba(240,175,90,0.8); }
 
 .danger {
   background: rgba(255,100,100,0.04);

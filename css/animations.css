@@ -132,7 +132,6 @@
   }
 }
 
-/* Journey pills: one keyframe timeline per DOM step (same duration, phase baked in → always L→R). */
 @keyframes journey-chip-build {
   0%, 5% {
     background: #141414;
