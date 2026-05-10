@@ -2,16 +2,26 @@
   const canvas = document.getElementById('bg-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-
-  const PARTICLE_COUNT  = 88;
-  const CONNECT_DIST    = 148;
   const prefersReduced  = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  let W, H, particles = [], raf;
+  let W, H, particles = [], raf, dpr = 1, particleCount = 88, connectDist = 148;
+
+  function tuneForViewport() {
+    const area = window.innerWidth * window.innerHeight;
+    particleCount = Math.max(88, Math.min(190, Math.round(area / 18000)));
+    connectDist = Math.max(148, Math.min(230, Math.round(Math.sqrt(area) / 7.25)));
+  }
 
   function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    tuneForViewport();
   }
 
   class Particle {
@@ -52,7 +62,7 @@
 
   function init() {
     particles = [];
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
+    for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle(true));
     }
   }
@@ -66,13 +76,13 @@
         const dx = a.x - b.x;
         const dy = a.y - b.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < CONNECT_DIST) {
-          const alpha = (1 - dist / CONNECT_DIST) * 0.095;
+        if (dist < connectDist) {
+          const alpha = (1 - dist / connectDist) * 0.12;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
           ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
-          ctx.lineWidth = 0.75;
+          ctx.lineWidth = 0.95;
           ctx.stroke();
         }
       }
@@ -95,7 +105,10 @@
     return;
   }
 
-  window.addEventListener('resize', () => { resize(); });
+  window.addEventListener('resize', () => {
+    resize();
+    init();
+  });
   resize();
   init();
   frame();

@@ -91,12 +91,28 @@ body {
 .bg-grid {
   position: absolute;
   inset: -100%;
-  opacity: 0.42;
+  opacity: 0.44;
   background-image:
-    linear-gradient(rgba(255,255,255,0.075) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.075) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
   background-size: 60px 60px;
-  animation: grid-drift 72s linear infinite;
+  animation: grid-drift 64s linear infinite;
+}
+.bg-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(255,255,255,0.055) 50%,
+    transparent 62%,
+    transparent 100%);
+  background-size: 180% 100%;
+  mix-blend-mode: screen;
+  opacity: 0.32;
+  animation: grid-wind 22s ease-in-out infinite;
 }
 .bg-glow {
   position: absolute;
@@ -135,25 +151,9 @@ body {
   background-size: 200% 100%;
   animation: bg-sweep 12s ease-in-out infinite;
 }
-.bg-scanline {
-  position: absolute;
-  left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg,
-    transparent 0%, rgba(255,255,255,0.1) 20%,
-    rgba(230,232,238,0.22) 50%,
-    rgba(255,255,255,0.09) 80%, transparent 100%);
-  animation: scanline-crawl 9s linear infinite;
-  animation-delay: -3s;
-}
+.bg-scanline,
 .bg-scanline-2 {
-  position: absolute;
-  left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg,
-    transparent, rgba(255,255,255,0.08), transparent);
-  animation: scanline-crawl 14s linear infinite;
-  animation-delay: -9s;
+  display: none;
 }
 .bg-aurora {
   position: absolute;
@@ -181,6 +181,55 @@ body {
   opacity: 0.025;
   z-index: 1;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (min-width: 961px) {
+  #bg-canvas {
+    opacity: 1;
+  }
+
+  .bg-grid {
+    opacity: 0.58;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.11) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.11) 1px, transparent 1px);
+  }
+
+  .bg-glow-a {
+    background: rgba(255,255,255,0.16);
+    filter: blur(96px);
+  }
+
+  .bg-glow-b {
+    background: rgba(255,255,255,0.125);
+    filter: blur(92px);
+  }
+
+  .bg-glow-c {
+    background: rgba(255,255,255,0.1);
+    filter: blur(88px);
+  }
+
+  .bg-sweep {
+    background: linear-gradient(128deg,
+      transparent 0%, transparent 28%,
+      rgba(255,255,255,0.09) 50%,
+      transparent 72%, transparent 100%);
+  }
+
+  .bg-aurora {
+    opacity: 0.96;
+    filter: blur(30px);
+  }
+
+  .bg-vignette {
+    background: radial-gradient(ellipse 84% 78% at 50% 42%,
+      transparent 0%, rgba(0,0,0,0.42) 100%);
+  }
+
+  .noise-overlay {
+    opacity: 0.034;
+  }
 }
 
 
@@ -871,6 +920,54 @@ li strong { color: var(--text); }
 }
 .docs-table tbody tr:last-child td { border-bottom: none; }
 .docs-table tbody tr:hover td { background: rgba(255,255,255,0.02); }
+
+.migration-map {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 var(--space-5);
+}
+
+.migration-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.02);
+  padding: 12px 14px;
+}
+
+.migration-item__row + .migration-item__row {
+  margin-top: 10px;
+}
+
+.migration-item__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.migration-item__value {
+  display: block;
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.migration-item__value .ic {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.migration-item__note {
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
 
 
 .ic {

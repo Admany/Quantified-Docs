@@ -63,7 +63,7 @@
       <div class="logo-text-block">
         <div class="logo-name">Quantified API</div>
         <div class="logo-byline"><span class="logo-by-soft">By</span> <strong>BlackRift Studios</strong><span class="logo-by-soft">,</span> Admany</div>
-    </div>~
+    </div>
     </div>
 
     <div class="sidebar-inner">
@@ -78,9 +78,17 @@
           <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
           <span class="nav-text">Quickstart</span>
         </a>
+        <a class="nav-link" data-page="migration" href="#migration">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="m3 3 5 5"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/><path d="m21 21-5-5"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="m16 8 5-5"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="m8 16-5 5"/></svg></span>
+          <span class="nav-text">Migrating from V1</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">Examples</div>
         <a class="nav-link" data-page="recipes" href="#recipes">
           <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg></span>
-          <span class="nav-text">Recipes</span>
+          <span class="nav-text">LC²H patterns</span>
         </a>
       </div>
 
@@ -173,12 +181,12 @@
 
 <section id="intro" class="page active">
 
-  <h1 class="silver-text">Hey, welcome to Quantified API! :D</h1>
+  <h1 class="silver-text">Welcome to Quantified API</h1>
   <p class="lede">
     So you're building a Minecraft mod and your async code is doing that fun thing where it works 90% of the time,
-    and the other 10% it just... vibes incorrectly. Threads fighting, futures vanishing, tick thread crying. xD<br><br>
+    and the other 10% it just... detonates a nuke or hates other mods. Threads shooting each other, futures vanishing into thin air, and best of all tick threads crying LMAO<br><br>
     Quantified API is a runtime layer that handles scheduling, threading, GPU compute, caching, and
-    observability. You write the logic. Quantified API figures out where and when to run it. ;]
+    observability. You write just the interface code and that's all. Quantified API figures out the rest: where and when to run it, and how ;]
   </p>
 
   <div class="card-grid card-grid--intro">
@@ -186,40 +194,39 @@
       <div class="card" onclick="showPage('quickstart')">
         <div class="card-arrow">&#x2197;</div>
         <h4>First 10 minutes</h4>
-        <p>Register your mod, submit your first <span class="ic">compute</span> and <span class="ic">parallel</span> task. It&rsquo;s genuinely easy.</p>
+        <p>Register your mod, submit your first <span class="ic">compute</span> and <span class="ic">parallel</span> task. It&rsquo;s quite simple actually.</p>
       </div>
       <div class="card" onclick="showPage('license')">
         <div class="card-arrow">&#x2197;</div>
         <h4>BRSSLA V1.5</h4>
-        <p>License details, what&rsquo;s allowed for end users and distributors, IP rules. Not scary, just read it. ;]</p>
+        <p>License details, what&rsquo;s allowed for end users and distributors, IP rules. Boring? Yes. Scary? No :]</p>
       </div>
       <div class="card" onclick="showPage('architecture')">
         <div class="card-arrow">&#x2197;</div>
         <h4>How it actually works</h4>
-        <p>The internals are interesting! Handles, routers, async managers. Worth a read even if you don&rsquo;t need it immediately.</p>
+        <p>The internals are interestin. Handles, routers, async managers.</p>
       </div>
     </div>
   </div>
 
-  <h2>Okay but why does this exist</h2>
+  <h2>But WHY does this exist</h2>
   <p>
-    Mods love to bolt <span class="ic">CompletableFuture.runAsync</span> directly onto vanilla code paths.
-    That scatters work across unnamed thread pools, competes with the server tick, duplicates the same boilerplate
-    across every module, and eventually explodes when someone blocks on the main thread waiting for a future that
-    resolves slightly later than expected. And then the TPS graph goes brrrr downwards. xD
+    Simple: there is nothing like it. Mods love to bolt <span class="ic">CompletableFuture.runAsync</span> directly onto vanilla code paths expecting it'll work fine (it 99% of the times doesn't...).
+    That scatters work across unnamed thread pools, competes with the server ticks, duplicates the same task
+    across EVERY module, and eventually DETONATES when something blocks on the main thread waiting for a future that
+    resolves slightly later than expected. And then the TPS graph goes brrrr downwards or the game just dies...
   </p>
   <p>
     Quantified API gives you one central place for <strong>identity</strong> (per-mod handles so work is always attributed),
     <strong>stable keys</strong> (deduplication and cache locality), <strong>routing</strong> (CPU vs GPU with honest
     fallbacks), and <strong>observability</strong> (dashboard + telemetry so you can actually see what&rsquo;s happening).
-    You still write the math. Quantified API owns the plumbing.
+    You still write the math while Quantified API owns the spaggeti.
   </p>
 
   <div class="tip">
-    Call <span class="ic">QuantifiedAPI.register(modId, displayName, version)</span> from your mod constructor or
-    a dedicated setup method, not lazily on first use. If the handle is missing when you call
-    <span class="ic">compute</span>, <span class="ic">parallel</span>, or <span class="ic">cache</span>,
-    you get an <span class="ic">IllegalStateException</span>. Just register early and forget about it :)
+    V2 will auto-register your mod on first real use by pulling the mod ID, display name, and version from loader metadata.
+    That auto-detection path supports Fabric, Forge, and NeoForge loader metadata.
+    Manual <span class="ic">register(...)</span> is now mostly an override or an escape hatch for weird bootstrap/shared-helper situations.
   </div>
 
   <h2>Pick the right tool for the job</h2>
@@ -237,7 +244,7 @@
         <tr>
           <td>Many items in parallel</td>
           <td><span class="ic">parallel(...).items(...).map(...)</span></td>
-          <td>Controlled fan-out, configurable failure policies.</td>
+          <td>Controlled multitasking, configurable failure policies.</td>
         </tr>
         <tr>
           <td>Index-based loops</td>
@@ -267,7 +274,7 @@
     Prefer composing <span class="ic">CompletableFuture</span> with <span class="ic">thenApply</span> and
     <span class="ic">exceptionally</span> instead of calling <span class="ic">.join()</span> on the server thread.
     Blocking there shows up as lag. If you genuinely need to block in a safe window (world load, data fixer),
-    comment it in code review so the next person knows it&rsquo;s intentional.
+    comment it in code so the next person knows it&rsquo;s intentional.
   </div>
 
   <footer class="site-footer">
@@ -279,33 +286,36 @@
 
 <section id="quickstart" class="page">
 
-  <h1 class="silver-text">Let&rsquo;s get you up and running :DD</h1>
+  <h1 class="silver-text">Let&rsquo;s get you up and running </h1>
   <p class="lede">
-    Three steps. Actually more like two and a half. You&rsquo;ll be submitting async jobs
-    within 5 minutes, I promise xD
+    Three steps. Actually like two and a half xd. You&rsquo;ll be submitting async jobs
+    within 5 minutes (that is if you follow a long...).
   </p>
 
-  <h2>Step 1 - Tell Quantified API your mod exists</h2>
-  <p>Call <span class="ic">register</span> from your mod constructor or early setup. Do it once. Done.</p>
+  <h2>Step 1 - Usually do nothing :DDD</h2>
+  <p>
+    In V2, Quantified API auto-registers your mod the first time you actually use
+    <span class="ic">compute</span>, <span class="ic">parallel</span>, <span class="ic">graph</span>, or <span class="ic">cache</span>.
+    It grabs your mod ID, display name, and version from the loader metadata automatically on Fabric, Forge, and NeoForge.
+  </p>
   <div class="code-wrap">
     <div class="code-header">
       <span class="code-lang">Java</span>
       <button class="code-copy" type="button">copy</button>
     </div>
-    <div class="code-block"><span class="t-cm">// In your mod constructor or setup event</span>
-<span class="t-kw">public class</span> <span class="t-ty">MyMod</span> {
-    <span class="t-kw">public</span> <span class="t-fn">MyMod</span>() {
-        <span class="t-cm">// Simple: pulls name + version from mods.toml automatically</span>
-        <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">register</span>(<span class="t-str">"mymod"</span>);
+    <div class="code-block"><span class="t-cm">// Normal V2 usage: just use the API.</span>
+<span class="t-cm">// QAPI auto-registers your mod from loader metadata.</span>
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">Digest</span>&gt; future = <span class="t-ty">QuantifiedAPI</span>
+    .<span class="t-fn">compute</span>(<span class="t-str">"chunkDigest"</span>)
+    .<span class="t-fn">submit</span>(() -&gt; <span class="t-fn">expensiveHash</span>(snapshot));
 
-        <span class="t-cm">// Or be explicit:</span>
-        <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">register</span>(<span class="t-str">"mymod"</span>, <span class="t-str">"My Cool Mod"</span>, <span class="t-str">"1.0.0"</span>);
-    }
-}</div>
+<span class="t-cm">// Optional manual override if you genuinely need it:</span>
+<span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">register</span>(<span class="t-str">"mymod"</span>);
+<span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">register</span>(<span class="t-str">"mymod"</span>, <span class="t-str">"My Cool Mod"</span>, <span class="t-str">"1.0.0"</span>);</div>
   </div>
   <div class="warn">
-    Skip registration and your first <span class="ic">compute()</span> or <span class="ic">parallel()</span> call will throw
-    <span class="ic">IllegalStateException: QuantifiedAPI not initialized</span>. Which is annoying. So just register first. :)
+    If you are in shared utility code, test scaffolding, or some cursed bootstrap edge-case where auto-detection cannot tell which
+    mod owns the call, use the explicit <span class="ic">modId</span> overloads or manual <span class="ic">register(...)</span>.
   </div>
 
   <h2>Step 2 - Submit some work</h2>
@@ -330,7 +340,7 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 });</div>
   </div>
 
-  <h2>Step 3 - Parallel over a list (the fun part xD)</h2>
+  <h2>Step 3 - Parallel over a list (the WORST part)</h2>
   <div class="code-wrap">
     <div class="code-header">
       <span class="code-lang">Java - parallel map</span>
@@ -359,7 +369,7 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
     If your mod separates bootstrap from execution contexts (common in multi-module setups), use the explicit
     <span class="ic">modId</span> overloads: <span class="ic">compute(modId, task)</span>,
     <span class="ic">parallel(modId, task)</span>, <span class="ic">graph(modId, name)</span>.
-    That bypasses the <span class="ic">ThreadLocal</span> handle lookup and avoids confusion when helper classes are shared.
+    That bypasses auto-detection and avoids confusion when helper classes are shared between multiple mods.
   </div>
 
   <h2>Before you ship, check these</h2>
@@ -367,8 +377,387 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
     <li>Every hot-path task has a <strong>stable key</strong> when the same task name is reused across different inputs.</li>
     <li>GPU code paths have a <strong>CPU fallback</strong> that produces equivalent output.</li>
     <li>Your <span class="ic">parallel</span> failure policy matches what you actually want (<span class="ic">FAIL_FAST</span> vs <span class="ic">BEST_EFFORT</span>).</li>
-    <li>You&rsquo;ve opened <span class="ic">developerDashboard: true</span> at least once and poked around. It&rsquo;s cool ;]</li>
+    <li>You&rsquo;ve opened <span class="ic">developerDashboard: true</span> at least once.</li>
   </ul>
+
+  <footer class="site-footer">
+    <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
+  </footer>
+
+</section>
+
+
+<section id="migration" class="page">
+
+  <h1 class="silver-text">Migrating from the V1 API</h1>
+  <p class="lede">
+    V2 aims to double down on what actually matters - async, parallel multitasking, and GPU routing while being less messy.
+    The API is now even cleaner, more explicit, and actually matches how the runtime thinks.
+  </p>
+
+  <div class="callout">
+    The big shift? V2 is now builder first. Instead of a hundred static helpers, you start with
+    <span class="ic">compute</span>, <span class="ic">parallel</span>, or <span class="ic">cache</span> and build your intent from there.
+  </div>
+
+  <div class="tip">
+    Registration changed too: V1-style eager <span class="ic">register(...)</span> is no longer the normal path.
+    In V2, Quantified API auto-registers from loader metadata on Fabric, Forge, and NeoForge the first time you
+    actually use the API. Keep manual <span class="ic">register(...)</span> only for explicit overrides or ambiguous bootstrap/shared-helper contexts.
+  </div>
+
+  <h2>The TLDR</h2>
+  <p>
+    V1 was fragmented badly and prone to accidental behavior. V2 on the other hand demands explicit keys and shapes,
+    giving you one obvious path for every job.
+  </p>
+
+  <h2>What&rsquo;s actually different?</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Builders are now THE law</h3>
+      <p>
+        V1 was full of ad-hoc helpers everywhere. V2 on the other hand, centers everything on fluent request objects.
+        It keeps your code readable even when you&rsquo;re piling on timeouts, fallbacks, and GPU preferences.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Identity is now everything</h3>
+      <p>
+        Stable keys aren&rsquo;t an afterthought anymore as before. If your old code used random or hidden keys, switch to explicit
+        <span class="ic">key(...)</span> values based on your inputs. It&rsquo;s a massive performance win of V2.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Intent over implementation</h3>
+      <p>
+        Fully forget digging for Vulkan or OpenCL entry points. In V2, you just call <span class="ic">compute()</span> and then
+        tag on what you want: <span class="ic">preferGpu()</span>, <span class="ic">preferVulkan()</span>, or
+        <span class="ic">cpuOnly()</span>. You describe the goal, the API handles the scheduling, submission, processing and
+        sends the results back to ya.
+      </p>
+    </div>
+  </div>
+
+  <h2>V1 to V2 mapping</h2>
+  <div class="migration-map">
+    <article class="migration-item">
+      <div class="migration-item__row">
+        <span class="migration-item__label">V1</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.register(...)</span> as required setup</span>
+      </div>
+      <div class="migration-item__row">
+        <span class="migration-item__label">V2</span>
+        <span class="migration-item__value">Usually nothing; auto-register on first API use</span>
+      </div>
+      <p class="migration-item__note">Manual registration is now mainly an override or escape hatch for ambiguous ownership.</p>
+    </article>
+
+    <article class="migration-item">
+      <div class="migration-item__row">
+        <span class="migration-item__label">V1</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.submit(...)</span></span>
+      </div>
+      <div class="migration-item__row">
+        <span class="migration-item__label">V2</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.compute(name)...submit(...)</span></span>
+      </div>
+      <p class="migration-item__note">Normal async work now goes through the compute builder.</p>
+    </article>
+
+    <article class="migration-item">
+      <div class="migration-item__row">
+        <span class="migration-item__label">V1</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.task(...)</span></span>
+      </div>
+      <div class="migration-item__row">
+        <span class="migration-item__label">V2</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.compute(...)</span></span>
+      </div>
+      <p class="migration-item__note">Task-builder style was folded into the fluent compute API.</p>
+    </article>
+
+    <article class="migration-item">
+      <div class="migration-item__row">
+        <span class="migration-item__label">V1</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.submitParallel(...)</span></span>
+      </div>
+      <div class="migration-item__row">
+        <span class="migration-item__label">V2</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.parallel(...)</span></span>
+      </div>
+      <p class="migration-item__note">Use <span class="ic">items(...)</span> or <span class="ic">range(...)</span> depending on shape.</p>
+    </article>
+
+    <article class="migration-item">
+      <div class="migration-item__row">
+        <span class="migration-item__label">V1</span>
+        <span class="migration-item__value"><span class="ic">ParallelCompute.Builder</span> as primary entry</span>
+      </div>
+      <div class="migration-item__row">
+        <span class="migration-item__label">V2</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.parallel(...)</span></span>
+      </div>
+      <p class="migration-item__note">Parallel is still there, but it is now a first-class public lane.</p>
+    </article>
+
+    <article class="migration-item">
+      <div class="migration-item__row">
+        <span class="migration-item__label">V1</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.getCached(...)</span></span>
+      </div>
+      <div class="migration-item__row">
+        <span class="migration-item__label">V2</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.cache(bucket).get(key, loader)</span></span>
+      </div>
+      <p class="migration-item__note">Cache buckets are explicit now.</p>
+    </article>
+
+    <article class="migration-item">
+      <div class="migration-item__row">
+        <span class="migration-item__label">V1</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.getCachedAsync(...)</span></span>
+      </div>
+      <div class="migration-item__row">
+        <span class="migration-item__label">V2</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.cache(bucket).getAsync(key, loader)</span></span>
+      </div>
+      <p class="migration-item__note">Async cache population lives on the cache builder.</p>
+    </article>
+
+    <article class="migration-item">
+      <div class="migration-item__row">
+        <span class="migration-item__label">V1</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.putCached(...)</span></span>
+      </div>
+      <div class="migration-item__row">
+        <span class="migration-item__label">V2</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.cache(bucket).put(key, value)</span></span>
+      </div>
+      <p class="migration-item__note">Same behavior, clearer location.</p>
+    </article>
+
+    <article class="migration-item">
+      <div class="migration-item__row">
+        <span class="migration-item__label">V1</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.vulkan(...)</span></span>
+      </div>
+      <div class="migration-item__row">
+        <span class="migration-item__label">V2</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.compute(...).preferVulkan()</span></span>
+      </div>
+      <p class="migration-item__note">Most code should express preference, not start from a backend namespace.</p>
+    </article>
+
+    <article class="migration-item">
+      <div class="migration-item__row">
+        <span class="migration-item__label">V1</span>
+        <span class="migration-item__value"><span class="ic">QuantifiedAPI.hybrid(...)</span> / <span class="ic">hybridBuilder(...)</span></span>
+      </div>
+      <div class="migration-item__row">
+        <span class="migration-item__label">V2</span>
+        <span class="migration-item__value"><span class="ic">compute(...).preferGpu().fallback(...)</span></span>
+      </div>
+      <p class="migration-item__note">Hybrid routing still exists conceptually, but it is now described as intent on the compute request.</p>
+    </article>
+
+    <article class="migration-item">
+      <div class="migration-item__row">
+        <span class="migration-item__label">V1</span>
+        <span class="migration-item__value">Implicit/random task identity</span>
+      </div>
+      <div class="migration-item__row">
+        <span class="migration-item__label">V2</span>
+        <span class="migration-item__value"><span class="ic">key(...)</span></span>
+      </div>
+      <p class="migration-item__note">Use stable logical keys if you want dedupe, joining, or cache-friendly behavior.</p>
+    </article>
+  </div>
+
+  <h2>Common call-site rewrites</h2>
+  <p>
+    These are the kinds of changes you will make most often when moving old mods onto V2.
+  </p>
+
+  <h3>1. Basic async task</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Java</span>
+      <button class="code-copy" type="button">copy</button>
+    </div>
+    <div class="code-block"><span class="t-cm">// V1</span>
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">ChunkData</span>&gt; future =
+    <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">submit</span>(<span class="t-str">"chunkData"</span>, () -&gt; <span class="t-fn">buildChunkData</span>(pos));
+
+<span class="t-cm">// V2</span>
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">ChunkData</span>&gt; future =
+    <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">compute</span>(<span class="t-str">"chunkData"</span>)
+        .<span class="t-fn">key</span>(pos.toLong())
+        .<span class="t-fn">submit</span>(() -&gt; <span class="t-fn">buildChunkData</span>(pos));</div>
+  </div>
+
+  <h3>2. Helper code outside the main mod class</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Java</span>
+      <button class="code-copy" type="button">copy</button>
+    </div>
+    <div class="code-block"><span class="t-cm">// V1 style helpers often depended on hidden mod context</span>
+<span class="t-cm">// and could break if called from the wrong place.</span>
+
+<span class="t-cm">// V2: use the explicit mod overload when you are in shared utilities.</span>
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">Digest</span>&gt; future =
+    <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">compute</span>(<span class="t-str">"mymod"</span>, <span class="t-str">"digestAssets"</span>)
+        .<span class="t-fn">key</span>(resourcePackVersion)
+        .<span class="t-fn">background</span>()
+        .<span class="t-fn">submit</span>(() -&gt; <span class="t-fn">digestAssets</span>());</div>
+  </div>
+
+  <h3>3. Parallel multitasking</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Java</span>
+      <button class="code-copy" type="button">copy</button>
+    </div>
+    <div class="code-block"><span class="t-cm">// V1</span>
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">List</span>&lt;<span class="t-ty">Mesh</span>&gt;&gt; meshes =
+    <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">submitParallel</span>(<span class="t-str">"meshBuild"</span>, chunks, <span class="t-kw">this</span>::buildMesh);
+
+<span class="t-cm">// V2</span>
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">List</span>&lt;<span class="t-ty">Mesh</span>&gt;&gt; meshes =
+    <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">parallel</span>(<span class="t-str">"meshBuild"</span>)
+        .<span class="t-fn">items</span>(chunks)
+        .<span class="t-fn">map</span>(<span class="t-kw">this</span>::buildMesh)
+        .<span class="t-fn">submit</span>();</div>
+  </div>
+
+  <h3>4. Index-based loops</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Java</span>
+      <button class="code-copy" type="button">copy</button>
+    </div>
+    <div class="code-block"><span class="t-cm">// V2 prefers range-based parallelism for index loops.</span>
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">List</span>&lt;<span class="t-ty">Float</span>&gt;&gt; samples =
+    <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">parallel</span>(<span class="t-str">"sampleNoise"</span>)
+        .<span class="t-fn">range</span>(0, count)
+        .<span class="t-fn">map</span>(i -&gt; <span class="t-fn">sampleNoise</span>(seed, i))
+        .<span class="t-fn">submit</span>();</div>
+  </div>
+
+  <h3>5. Cache access</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Java</span>
+      <button class="code-copy" type="button">copy</button>
+    </div>
+    <div class="code-block"><span class="t-cm">// V1</span>
+<span class="t-ty">ChunkPlan</span> plan =
+    <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">getCached</span>(cacheKey, () -&gt; <span class="t-fn">buildPlan</span>(snapshot));
+
+<span class="t-cm">// V2</span>
+<span class="t-ty">ChunkPlan</span> plan =
+    <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">cache</span>(<span class="t-str">"chunk-plans"</span>)
+        .<span class="t-fn">ttl</span>(<span class="t-ty">Duration</span>.<span class="t-fn">ofMinutes</span>(15))
+        .<span class="t-fn">maxEntries</span>(<span class="t-num">10_000</span>)
+        .<span class="t-fn">get</span>(cacheKey, () -&gt; <span class="t-fn">buildPlan</span>(snapshot));</div>
+  </div>
+
+  <h3>6. GPU or hybrid workloads</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Java</span>
+      <button class="code-copy" type="button">copy</button>
+    </div>
+    <div class="code-block"><span class="t-cm">// V1 backend-first / hybrid-ish style</span>
+<span class="t-cm">// QuantifiedAPI.vulkan(...)</span>
+<span class="t-cm">// QuantifiedAPI.hybrid(...)</span>
+
+<span class="t-cm">// V2 intent-first style</span>
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">float</span>[]&gt; density =
+    <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">compute</span>(<span class="t-str">"densityPass"</span>)
+        .<span class="t-fn">key</span>(kernelKey)
+        .<span class="t-fn">preferGpu</span>()
+        .<span class="t-fn">preferVulkan</span>()
+        .<span class="t-fn">fallback</span>(() -&gt; <span class="t-fn">runCpuDensityPass</span>(input))
+        .<span class="t-fn">submit</span>(() -&gt; <span class="t-fn">runPreferredDensityPass</span>(input));</div>
+  </div>
+
+  <h3>7. Graph creation</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Java</span>
+      <button class="code-copy" type="button">copy</button>
+    </div>
+    <div class="code-block"><span class="t-cm">// V2 graph API is still graph-centric, but should be treated as the</span>
+<span class="t-cm">// first-class way to express staged dependency work rather than just</span>
+<span class="t-cm">// another quirky helper.</span>
+<span class="t-ty">QuantifiedTaskGraph</span>.<span class="t-ty">Builder</span> graph =
+    <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">graph</span>(<span class="t-str">"lightingPipeline"</span>);
+
+<span class="t-ty">var</span> gather = graph.<span class="t-fn">node</span>(<span class="t-str">"gather"</span>, () -&gt; <span class="t-fn">gatherInputs</span>());
+<span class="t-ty">var</span> solve  = graph.<span class="t-fn">node</span>(<span class="t-str">"solve"</span>, ctx -&gt; <span class="t-fn">solve</span>(ctx.result(gather))).dependsOn(gather);
+
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">LightState</span>&gt; result = graph.<span class="t-fn">submit</span>(solve);</div>
+  </div>
+
+  <h2>Migration rules that save you pain</h2>
+  <details class="expand" open>
+    <summary>Always add stable keys when the work can repeat</summary>
+    <div class="expand-body">
+      <p>
+        If your V1 code relied on unnamed or hidden identity, V2 is the moment to fix that. Keys should be derived from actual
+        logical inputs: chunk position, dimension, seed, resource version, player UUID, config digest, and so on.
+      </p>
+    </div>
+  </details>
+
+  <details class="expand">
+    <summary>Use explicit mod-id overloads in shared helpers</summary>
+    <div class="expand-body">
+      <p>
+        Utility classes, static helpers, or shared cross-mod code should not depend on thread-local registration context.
+        Use the overloads that take <span class="ic">modId</span> explicitly so the request is always bound correctly.
+      </p>
+    </div>
+  </details>
+
+  <details class="expand">
+    <summary>Do not translate everything one-to-one blindly</summary>
+    <div class="expand-body">
+      <p>
+        Some V1 entry points existed because the old architecture was more fragmented. If you were using Vulkan-first or
+        hybrid-first submission as the default style, don&rsquo;t just mechanically rename it - rethink whether the call site
+        should really be a normal <span class="ic">compute(...)</span> request with GPU preference instead.
+      </p>
+    </div>
+  </details>
+
+  <details class="expand">
+    <summary>Move cache policy onto the cache bucket, not random callers</summary>
+    <div class="expand-body">
+      <p>
+        V2 wants cache ownership to be obvious. If a bucket needs TTL, persistence, size caps, or manual invalidation, put
+        that policy on the bucket builder rather than scattering it across unrelated call sites.
+      </p>
+    </div>
+  </details>
+
+  <h2>Recommended migration order</h2>
+  <ol class="list">
+    <li>Update registration and helper code to use the correct V2 entry points.</li>
+    <li>Convert plain async submission to <span class="ic">compute(...)</span>.</li>
+    <li>Convert parallel multitasking to <span class="ic">parallel(...)</span>.</li>
+    <li>Move cache usage onto explicit <span class="ic">cache(bucket)</span> builders.</li>
+    <li>Add stable keys everywhere repeated work is possible.</li>
+    <li>Only after that, revisit GPU preference and graph call sites for better V2-native structure.</li>
+  </ol>
+
+  <div class="tip">
+    If a migration feels awkward, that is usually a sign the old call site was depending on V1 weirdness rather than expressing
+    the actual shape of the work. In V2, try to ask: is this one async compute job, one parallel workload, one graph pipeline,
+    or one cache-backed lookup?
+  </div>
 
   <footer class="site-footer">
     <p>Copyright &copy; BlackRift Studios. All rights reserved. &middot; The <a href="#license" class="site-footer__license" onclick="event.preventDefault(); showPage('license');">BRSSLA V1.5</a> text matches the Quantified API repo; if this site and GitHub disagree, trust GitHub.</p>
@@ -379,100 +768,212 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 
 <section id="recipes" class="page">
 
-  <h1 class="silver-text">Copy-paste recipes :D</h1>
+  <h1 class="silver-text">Code examples from LC²H </h1>
   <p class="lede">
-    Real patterns from real use cases. Grab what fits, tweak the names, ship it.
-    These are tested shapes, not theoretical ones.
+Here are some code examples from LC²H to get ya moving.
+
+The public version of LC²H on GitHub is still on V1, but these snippets are pulled straight from the unpublished dev branch of mine :]
   </p>
 
+  <div class="callout">
+    Source material for this page comes from LC²H systems like
+    <span class="ic">LostCityDagScheduler</span>,
+    <span class="ic">ParallelWorkQueue</span>,
+    <span class="ic">AsyncBuildingInfoPlanner</span>,
+    and <span class="ic">LostCitiesCacheBridge</span>.
+  </div>
+
+  <div class="tip">
+    Notice that these examples use the explicit <span class="ic">modId</span> overloads.
+    That&rsquo;s intentional. LC²H does a lot of work from helper classes, schedulers, and background systems, so the auto-detector tends to be wonky.
+  </div>
+
   <details class="expand" open>
-    <summary>Recipe A - Worldgen chunk prefetch</summary>
+    <summary>Example A - LC²H foreground compute for chunk-stage planning</summary>
     <div class="expand-body">
-      <p>Precompute expensive per-chunk data off the tick thread. Cache the result so repeat access is free.</p>
+      <p>
+        This comes from LC²H&rsquo;s spawn and building-info scheduling kinda stuff.
+        The real job here is simple: throw expensive chunk planning off-thread, keep it foreground because the player is literally waiting on it,
+        and don&rsquo;t let repeated requests for the same chunk multiply into dumb duplicate work.
+      </p>
+      <p>
+        In V2 terms this should just be <span class="ic">compute(...)</span> with a real key and affinity.
+        Not some weird ad-hoc task builder chain.
+      </p>
       <div class="code-wrap">
         <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
-        <div class="code-block"><span class="t-kw">public</span> <span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">ChunkData</span>&gt; <span class="t-fn">prefetch</span>(<span class="t-ty">ChunkPos</span> pos, <span class="t-ty">ResourceKey</span>&lt;<span class="t-ty">Level</span>&gt; dim) {
-    <span class="t-ty">String</span> key = dim.location() + <span class="t-str">":"</span> + pos.x + <span class="t-str">","</span> + pos.z;
+        <div class="code-block"><span class="t-kw">private static</span> <span class="t-ty">CompletableFuture</span>&lt;<span class="t-kw">Void</span>&gt; <span class="t-fn">submitSpawnTask</span>(
+    <span class="t-ty">IDimensionInfo</span> provider,
+    <span class="t-ty">ChunkCoord</span> coord,
+    <span class="t-ty">Runnable</span> action
+) {
+    <span class="t-ty">String</span> taskKey = provider.<span class="t-fn">getType</span>().<span class="t-fn">toString</span>() + <span class="t-str">":"</span> + coord.<span class="t-fn">chunkX</span>() + <span class="t-str">":"</span> + coord.<span class="t-fn">chunkZ</span>();
+    <span class="t-ty">String</span> locality = provider.<span class="t-fn">getType</span>().<span class="t-fn">toString</span>() + <span class="t-str">":chunk:"</span> + coord.<span class="t-fn">chunkX</span>() + <span class="t-str">":"</span> + coord.<span class="t-fn">chunkZ</span>();
 
-    <span class="t-kw">return</span> <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">cache</span>(<span class="t-str">"chunkData"</span>)
-        .<span class="t-fn">ttl</span>(<span class="t-ty">Duration</span>.<span class="t-fn">ofMinutes</span>(<span class="t-num">10</span>))
-        .<span class="t-fn">maxEntries</span>(<span class="t-num">4096</span>)
-        .<span class="t-fn">get</span>(key, () -&gt; <span class="t-ty">QuantifiedAPI</span>
-            .<span class="t-fn">compute</span>(<span class="t-str">"chunkAnalysis"</span>)
-            .<span class="t-fn">key</span>(key)
-            .<span class="t-fn">background</span>()
-            .<span class="t-fn">submit</span>(() -&gt; <span class="t-fn">analyzeChunk</span>(pos, dim))
-        );
+    <span class="t-kw">return</span> <span class="t-ty">QuantifiedAPI</span>
+        .<span class="t-fn">compute</span>(LC2H.MODID, <span class="t-str">"spawn-buildinginfo-batch"</span>)
+        .<span class="t-fn">key</span>(taskKey)
+        .<span class="t-fn">affinity</span>(locality)
+        .<span class="t-fn">foreground</span>()
+        .<span class="t-fn">timeout</span>(<span class="t-ty">Duration</span>.<span class="t-fn">ofSeconds</span>(<span class="t-num">15</span>))
+        .<span class="t-fn">submit</span>(() -&gt; {
+            action.<span class="t-fn">run</span>();
+            <span class="t-kw">return</span> <span class="t-kw">null</span>;
+        });
 }</div>
       </div>
+      <ul>
+        <li><span class="ic">key(...)</span> stops duplicate chunk requests from multiplying for no reason.</li>
+        <li><span class="ic">affinity(...)</span> keeps the work local to the chunk region or dimension instead of tossing it around randomly.</li>
+        <li><span class="ic">foreground()</span> is right here because this is player-visible work, not some background cleanup slop.</li>
+      </ul>
     </div>
   </details>
 
   <details class="expand">
-    <summary>Recipe B - GPU kernel with honest CPU fallback</summary>
+    <summary>Example B - LC²H parallel slice execution for region or batch work</summary>
     <div class="expand-body">
-      <p>Attempt GPU, fall back to CPU automatically. Quantified API picks the backend based on your hints and what the hardware supports.</p>
+      <p>
+        LC²H has a reusable parallel work queue for region or multichunk work.
+        It caps parallelism on smaller batches, can stream partial results out, and has fallback logic when pressure gets dumb.
+        In V2, the core shape of that work is still just <span class="ic">parallel(...)</span>.
+      </p>
       <div class="code-wrap">
         <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
-        <div class="code-block"><span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">float[]</span>&gt; result = <span class="t-ty">QuantifiedAPI</span>
-    .<span class="t-fn">compute</span>(<span class="t-str">"terrainNoise"</span>)
-    .<span class="t-fn">vulkanWorkload</span>(ctx -&gt; ctx.<span class="t-fn">runShader</span>(<span class="t-str">"terrain.comp"</span>, inputBuffer))
-    .<span class="t-fn">openclWorkload</span>(ctx -&gt; ctx.<span class="t-fn">runKernel</span>(<span class="t-str">"terrain.cl"</span>, inputBuffer))
-    .<span class="t-fn">cpuFallback</span>(() -&gt; <span class="t-fn">computeOnCpu</span>(inputBuffer))   <span class="t-cm">// always provide this!</span>
-    .<span class="t-fn">complexity</span>(<span class="t-ty">QuantifiedCompute.Complexity</span>.<span class="t-ann">HEAVY</span>)
-    .<span class="t-fn">kind</span>(<span class="t-ty">QuantifiedCompute.WorkloadKind</span>.<span class="t-ann">SIMULATION</span>)
-    .<span class="t-fn">backendPreference</span>(<span class="t-ty">GpuBackendPreference</span>.<span class="t-ann">VULKAN_FIRST</span>)
-    .<span class="t-fn">submit</span>(null);  <span class="t-cm">// null = no extra CPU supplier, GPU paths + fallback cover it</span></div>
+        <div class="code-block"><span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">List</span>&lt;<span class="t-ty">MultiChunk</span>&gt;&gt; future = <span class="t-ty">QuantifiedAPI</span>
+    .<span class="t-fn">parallel</span>(LC2H.MODID, <span class="t-str">"lc2h-multichunk-batch"</span>)
+    .<span class="t-fn">key</span>(dimensionId + <span class="t-str">":batch:"</span> + startChunkX + <span class="t-str">":"</span> + startChunkZ)
+    .<span class="t-fn">maxParallelism</span>(<span class="t-ty">Math</span>.<span class="t-fn">min</span>(<span class="t-num">4</span>, <span class="t-ty">Runtime</span>.<span class="t-fn">getRuntime</span>().<span class="t-fn">availableProcessors</span>()))
+    .<span class="t-fn">items</span>(multiCoords)
+    .<span class="t-fn">map</span>(coord -&gt; kernel.<span class="t-fn">planMultiChunk</span>(<span class="t-fn">inputFor</span>(provider, coord, areaSize)).<span class="t-fn">multiChunk</span>())
+    .<span class="t-fn">stream</span>(chunk -&gt; telemetry.<span class="t-fn">recordPreparedChunk</span>(chunk))
+    .<span class="t-fn">submit</span>();</div>
       </div>
+      <ul>
+        <li>This is basically the V2 version of LC²H&rsquo;s old <span class="ic">ParallelCompute.Builder</span>-first queue.</li>
+        <li><span class="ic">stream(...)</span> is nice when you want progress reporting or side bookkeeping while the batch is still going.</li>
+        <li>If the work is index-driven instead of list-driven, switch it to <span class="ic">range(start, end)</span>.</li>
+      </ul>
     </div>
   </details>
 
   <details class="expand">
-    <summary>Recipe C - DAG pipeline (seed &rarr; transform &rarr; reduce)</summary>
+    <summary>Example C - LC²H DAG scheduling for multichunk worldgen</summary>
     <div class="expand-body">
-      <p>When Step B needs the output of Step A, use a graph. Nodes declare dependencies explicitly.</p>
+      <p>
+        LC²H already has a real DAG scheduler for kernel-driven multichunk planning.
+        This is one of the stronger examples in the codebase because it uses locality, wavefront execution, node-level timeouts, and a gather stage that actually reduces dependency results instead of pretending to be a graph.
+      </p>
       <div class="code-wrap">
         <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
-        <div class="code-block"><span class="t-ty">QuantifiedTaskGraph.Builder</span> g = <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">graph</span>(<span class="t-str">"lightingPipeline"</span>);
+        <div class="code-block"><span class="t-ty">QuantifiedTaskGraph.Builder</span> graph = <span class="t-ty">QuantifiedAPI</span>
+    .<span class="t-fn">graph</span>(LC2H.MODID, <span class="t-str">"lc2h-kernel-multichunk-batch"</span>)
+    .<span class="t-fn">key</span>(dimensionId + <span class="t-str">":batch:"</span> + startChunkX + <span class="t-str">":"</span> + startChunkZ)
+    .<span class="t-fn">locality</span>(dimensionId + <span class="t-str">":batch:"</span> + startChunkX + <span class="t-str">":"</span> + startChunkZ)
+    .<span class="t-fn">wavefront</span>();
 
-<span class="t-cm">// Step A: load raw data</span>
-<span class="t-ty">QuantifiedTaskGraph.NodeHandle</span>&lt;<span class="t-ty">RawData</span>&gt; load =
-    g.<span class="t-fn">node</span>(<span class="t-str">"load"</span>, ctx -&gt; <span class="t-fn">loadRawData</span>());
+<span class="t-ty">ArrayList</span>&lt;<span class="t-ty">QuantifiedTaskGraph.NodeHandle</span>&lt;<span class="t-ty">LostCityMultiChunkPlan</span>&gt;&gt; handles = <span class="t-kw">new</span> <span class="t-ty">ArrayList</span>&lt;&gt;();
 
-<span class="t-cm">// Step B: depends on A</span>
-<span class="t-ty">QuantifiedTaskGraph.NodeHandle</span>&lt;<span class="t-ty">ProcessedData</span>&gt; process =
-    g.<span class="t-fn">node</span>(<span class="t-str">"process"</span>, ctx -&gt; <span class="t-fn">process</span>(ctx.<span class="t-fn">result</span>(load)))
-     .<span class="t-fn">dependsOn</span>(load);
+<span class="t-kw">for</span> (<span class="t-kw">int</span> i = <span class="t-num">0</span>; i &lt; multiCoords.<span class="t-fn">size</span>(); i++) {
+    <span class="t-ty">ChunkCoord</span> coord = multiCoords.<span class="t-fn">get</span>(i);
+    <span class="t-ty">LostCityKernelInput</span> input = <span class="t-fn">inputFor</span>(provider, coord, areaSize);
 
-<span class="t-cm">// Step C: depends on B, terminal result</span>
-<span class="t-ty">QuantifiedTaskGraph.NodeHandle</span>&lt;<span class="t-ty">LightMap</span>&gt; reduce =
-    g.<span class="t-fn">node</span>(<span class="t-str">"reduce"</span>, ctx -&gt; <span class="t-fn">reduce</span>(ctx.<span class="t-fn">result</span>(process)))
-     .<span class="t-fn">dependsOn</span>(process);
+    handles.<span class="t-fn">add</span>(graph
+        .<span class="t-fn">node</span>(<span class="t-str">"plan-multichunk-"</span> + i, ctx -&gt; kernel.<span class="t-fn">planMultiChunk</span>(input))
+        .<span class="t-fn">critical</span>()
+        .<span class="t-fn">threadSafe</span>(<span class="t-kw">true</span>)
+        .<span class="t-fn">timeout</span>(<span class="t-ty">Duration</span>.<span class="t-fn">ofSeconds</span>(<span class="t-num">30</span>))
+        .<span class="t-fn">batchKey</span>(<span class="t-str">"lc2h:kernel:multichunk-batch:"</span> + dimensionId)
+        .<span class="t-fn">localityKey</span>(input.<span class="t-fn">localityKey</span>()));
+}
 
-<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">LightMap</span>&gt; future = <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">submitGraph</span>(g, reduce);</div>
+<span class="t-ty">QuantifiedTaskGraph.NodeHandle</span>&lt;<span class="t-ty">List</span>&lt;<span class="t-ty">MultiChunk</span>&gt;&gt; gather = graph
+    .<span class="t-fn">node</span>(<span class="t-str">"gather"</span>, ctx -&gt; {
+        <span class="t-ty">List</span>&lt;<span class="t-ty">MultiChunk</span>&gt; out = <span class="t-kw">new</span> <span class="t-ty">ArrayList</span>&lt;&gt;(handles.<span class="t-fn">size</span>());
+        <span class="t-kw">for</span> (<span class="t-ty">QuantifiedTaskGraph.NodeHandle</span>&lt;<span class="t-ty">LostCityMultiChunkPlan</span>&gt; handle : handles) {
+            out.<span class="t-fn">add</span>(ctx.<span class="t-fn">result</span>(handle).<span class="t-fn">multiChunk</span>());
+        }
+        <span class="t-kw">return</span> out;
+    })
+    .<span class="t-fn">dependsOn</span>(handles.<span class="t-fn">toArray</span>(<span class="t-kw">new</span> <span class="t-ty">QuantifiedTaskGraph.NodeHandle</span>&lt;?&gt;[<span class="t-num">0</span>]))
+    .<span class="t-fn">critical</span>()
+    .<span class="t-fn">threadSafe</span>(<span class="t-kw">true</span>);
+
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">List</span>&lt;<span class="t-ty">MultiChunk</span>&gt;&gt; future = graph.<span class="t-fn">submit</span>(gather);</div>
       </div>
+      <ul>
+        <li>Use a graph when the dependency structure is actually real, not just because the method got long and ugly.</li>
+        <li><span class="ic">wavefront()</span> fits nicely when a bunch of sibling nodes can run together before a final gather or reduce step.</li>
+        <li>Node-level <span class="ic">batchKey</span> and <span class="ic">localityKey</span> let the runtime keep better scheduling behavior than some flat future chain nonsense.</li>
+      </ul>
     </div>
   </details>
 
   <details class="expand">
-    <summary>Recipe D - Debounced background cache refresh</summary>
+    <summary>Example D - LC²H cache bridge for reusable planning artifacts</summary>
     <div class="expand-body">
-      <p>Regenerate expensive computed data in the background whenever inputs change, without hammering the thread pool.</p>
+      <p>
+        LC²H has a cache bridge for expensive Lost Cities derived state.
+        In V2 this gets way cleaner: use an actual named cache bucket, make persistence explicit, and let the API deal with async cache population instead of hiding weird cache logic all over the place.
+      </p>
       <div class="code-wrap">
         <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
-        <div class="code-block"><span class="t-kw">private volatile</span> <span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">SomeResult</span>&gt; pendingRefresh;
+        <div class="code-block"><span class="t-kw">public static</span> <span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">BuildingInfo</span>&gt; <span class="t-fn">getOrScheduleBuildingInfo</span>(
+    <span class="t-ty">IDimensionInfo</span> provider,
+    <span class="t-ty">ChunkCoord</span> coord
+) {
+    <span class="t-ty">String</span> key = provider.<span class="t-fn">getType</span>().<span class="t-fn">toString</span>() + <span class="t-str">":"</span> + coord.<span class="t-fn">chunkX</span>() + <span class="t-str">":"</span> + coord.<span class="t-fn">chunkZ</span>();
 
-<span class="t-kw">public void</span> <span class="t-fn">onInputChanged</span>() {
-    <span class="t-kw">if</span> (pendingRefresh != <span class="t-kw">null</span> &amp;&amp; !pendingRefresh.<span class="t-fn">isDone</span>()) {
-        <span class="t-kw">return</span>;  <span class="t-cm">// already refreshing, chill xD</span>
-    }
-    pendingRefresh = <span class="t-ty">QuantifiedAPI</span>
-        .<span class="t-fn">compute</span>(<span class="t-str">"bgRefresh"</span>)
-        .<span class="t-fn">background</span>()
-        .<span class="t-fn">submit</span>(this::<span class="t-fn">rebuildData</span>)
-        .<span class="t-fn">thenAccept</span>(result -&gt; <span class="t-ty">SomeCache</span>.<span class="t-fn">update</span>(result));
+    <span class="t-kw">return</span> <span class="t-ty">QuantifiedAPI</span>
+        .<span class="t-fn">cache</span>(LC2H.MODID, <span class="t-str">"lc2h-building-info"</span>)
+        .<span class="t-fn">ttl</span>(<span class="t-ty">Duration</span>.<span class="t-fn">ofMinutes</span>(<span class="t-num">30</span>))
+        .<span class="t-fn">maxEntries</span>(<span class="t-num">8192</span>)
+        .<span class="t-fn">diskPreferred</span>()
+        .<span class="t-fn">compressed</span>()
+        .<span class="t-fn">refreshOnAccess</span>()
+        .<span class="t-fn">prefetch</span>(key, () -&gt; <span class="t-fn">buildBuildingInfo</span>(provider, coord));
 }</div>
       </div>
+      <ul>
+        <li>Use <span class="ic">cache(...)</span> when you care about reusing the actual result value, not just coalescing in-flight work.</li>
+        <li>Keep the cache key tied to real correctness inputs: dimension, chunk, world variant, seed state, whatever can actually change the answer.</li>
+        <li><span class="ic">prefetch(...)</span> is great for warmup or planner systems where you want the value loading now, but you don&rsquo;t wanna block on some ugly sync path later.</li>
+        <li>V2 auto-registers the mod here too, so the cache bridge no longer needs to front-load manual registration just to function.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="expand">
+    <summary>Example E - LC²H GPU-first region warmup with honest CPU fallback</summary>
+    <div class="expand-body">
+      <p>
+        LC²H has a region warmup path that tries GPU-assisted batch processing first and falls back to CPU if the backend
+        is unavailable or the drivers are being drivers.
+        That is exactly the kinda job V2 wants expressed as one <span class="ic">compute(...)</span> request with backend intent.
+      </p>
+      <div class="code-wrap">
+        <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
+        <div class="code-block"><span class="t-ty">RegionBatchProcessingGPUTask</span> workload = <span class="t-kw">new</span> <span class="t-ty">RegionBatchProcessingGPUTask</span>(entries);
+
+<span class="t-ty">CompletableFuture</span>&lt;<span class="t-ty">Boolean</span>&gt; future = <span class="t-ty">QuantifiedAPI</span>
+    .&lt;<span class="t-ty">Boolean</span>&gt;<span class="t-fn">compute</span>(LC2H.MODID, <span class="t-str">"region-processing-batch"</span>)
+    .<span class="t-fn">key</span>(<span class="t-str">"region:"</span> + firstRegionKey)
+    .<span class="t-fn">preferVulkan</span>()
+    .<span class="t-fn">fallback</span>(() -&gt; <span class="t-ty">RegionBatchProcessingGPUTask</span>.<span class="t-fn">processBatchOnCPU</span>(entries))
+    .<span class="t-fn">vulkanWorkload</span>(workload)
+    .<span class="t-fn">openclWorkload</span>(workload)
+    .<span class="t-fn">dataSizeBytes</span>(workload.<span class="t-fn">estimatedVramBytes</span>())
+    .<span class="t-fn">parallelUnits</span>(workload.<span class="t-fn">estimatedComputeUnits</span>())
+    .<span class="t-fn">complexity</span>(<span class="t-ty">QuantifiedCompute</span>.<span class="t-ty">Complexity</span>.<span class="t-ann">MASSIVE</span>)
+    .<span class="t-fn">kind</span>(<span class="t-ty">QuantifiedCompute</span>.<span class="t-ty">WorkloadKind</span>.<span class="t-ann">SIMULATION</span>)
+    .<span class="t-fn">timeout</span>(<span class="t-ty">Duration</span>.<span class="t-fn">ofSeconds</span>(<span class="t-num">45</span>))
+    .<span class="t-fn">submit</span>();</div>
+      </div>
+      <ul>
+        <li>This replaces backend-first public entry points with one intent-first compute request.</li>
+        <li><span class="ic">preferVulkan()</span> says what LC²H wants, while still allowing OpenCL and CPU fallback so the mod doesn&rsquo;t just die on other hardware.</li>
+        <li>If the workload ain&rsquo;t actually GPU-worthy, don&rsquo;t force it. This pattern is best for large spatial batches or genuinely expensive kernel-style math.</li>
+      </ul>
     </div>
   </details>
 
@@ -485,29 +986,29 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 
 <section id="architecture" class="page">
 
-  <h1 class="silver-text">How this actually works ;]</h1>
+  <h1 class="silver-text">How does this actually work?</h1>
   <p class="lede">
     The architecture is pretty clean once you understand the three-layer model.
-    You only ever touch the top layer. The rest happens for you.
+    You only ever touch the top layer while the API does the rest.
   </p>
 
   <h2>Three layers</h2>
   <ul>
     <li><strong>API layer</strong> (<span class="ic">QuantifiedAPI</span>, request builders) - the surface you code against. Fluent builders that describe what you want.</li>
     <li><strong>Core runtime</strong> (<span class="ic">QuantifiedCoreRuntime</span>, async manager, GPU router) - decides how and where work actually runs. CPU thread pool, Vulkan queue, OpenCL context, whatever fits.</li>
-    <li><strong>Platform bridge</strong> (Forge 1.20.1 / 1.21.1 modules) - wires Quantified API into the Forge event lifecycle, mods.toml metadata, and server/client contexts.</li>
+    <li><strong>Platform bridge</strong> (loader integration + runtime metadata resolvers) - wires Quantified API into the active loader context and resolves mod metadata across Fabric, Forge, and NeoForge.</li>
   </ul>
 
   <h2>Handles and mod identity</h2>
   <p>
-    When you call <span class="ic">register</span>, Quantified API creates a <span class="ic">QuantifiedHandle</span> for your mod ID.
+    On first real use, Quantified API auto-detects the calling mod and creates a <span class="ic">QuantifiedHandle</span> for it.
     All subsequent calls (<span class="ic">compute</span>, <span class="ic">parallel</span>, <span class="ic">cache</span>)
-    go through that handle. It carries your mod ID, version, and a <span class="ic">ThreadLocal</span> reference so
-    you don&rsquo;t have to pass it everywhere.
+    go through that handle. It carries your mod ID, version, display name, and the current binding so you don&rsquo;t have to pass
+    all of that around manually.
   </p>
   <p>
-    If you&rsquo;re working across threads or sharing helpers between mods, use the explicit
-    <span class="ic">modId</span> overloads instead of relying on the thread-local. That&rsquo;s just safer and more obvious.
+    If you&rsquo;re working across threads, using shared helpers between multiple mods, or otherwise crossing context boundaries,
+    use the explicit <span class="ic">modId</span> overloads instead of relying on auto-detection. That&rsquo;s safer and more obvious.
   </p>
 
   <h2>Request builders</h2>
@@ -523,7 +1024,7 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
     When a <span class="ic">ComputeRequest</span> has Vulkan or OpenCL workloads attached, the GPU router
     (<span class="ic">GpuBackendRouter</span>) checks device availability and your <span class="ic">GpuBackendPreference</span>.
     If the preferred backend fails or isn&rsquo;t available, it falls through to the next option. If everything GPU-side
-    fails, it runs your <span class="ic">cpuFallback</span>. Always provide one!
+    fails, it runs your <span class="ic">cpuFallback</span>.
   </p>
 
   <div class="callout">
@@ -628,7 +1129,7 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
   <div class="warn">
     Set <span class="ic">complexity</span> and <span class="ic">kind</span> honestly. If you label everything
     <span class="ic">MASSIVE</span>, small tasks will hog GPU queues meant for actual large workloads and things get slow.
-    Also that&rsquo;s just mean to the scheduler xD
+    Also that&rsquo;s just mean to the scheduler and the other mods :[
   </div>
 
   <footer class="site-footer">
@@ -640,10 +1141,9 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 
 <section id="parallel" class="page">
 
-  <h1 class="silver-text">Parallel - fan-out, done right</h1>
+  <h1 class="silver-text">Parallelism: Fast multitasking.</h1>
   <p class="lede">
-    When you have a list (or a range) and you want to process every item concurrently with sane
-    failure handling and bounded concurrency. This is the thing.
+Managed concurrency for lists and ranges. This allows you to process items in parallel with smart error handling and strict limits on how many tasks run at once (actually really useful in a lot of cases).
   </p>
 
   <h2>Item-based</h2>
@@ -727,15 +1227,15 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
   <ul>
     <li><strong>Seed nodes</strong> have no <span class="ic">dependsOn</span>. They run immediately.</li>
     <li><strong>Transform nodes</strong> use <span class="ic">ctx.result(handle)</span> to read a dependency&rsquo;s output.</li>
-    <li><strong>Fan-out / join:</strong> call <span class="ic">dependsOn</span> with multiple handles on one node to join several branches.</li>
+    <li><strong>Multitask / join:</strong> call <span class="ic">dependsOn</span> with multiple handles on one node to join several branches.</li>
     <li>Graphs run nodes in topological order. Nodes with no data dependency on each other may run concurrently.</li>
     <li>If any node throws, the graph future fails. Wire an <span class="ic">exceptionally</span> on the result future.</li>
   </ul>
 
   <div class="hint">
     Graphs are great for pipelines where the number of stages is known at construction time.
-    For dynamic fan-out (variable number of items), use <span class="ic">parallel</span> instead.
-    Mix them: a graph node can submit a parallel task internally. xD
+    For dynamic multitasking (variable number of items), use <span class="ic">parallel</span> instead.
+    Mix them: a graph node can submit a parallel task internally as well.
   </div>
 
   <footer class="site-footer">
@@ -749,8 +1249,7 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 
   <h1 class="silver-text">Keys &amp; identity</h1>
   <p class="lede">
-    Stable keys are how Quantified API deduplicates work and keeps cache locality sane.
-    They sound boring but they matter a lot in practice. Trust me on this one :)
+Stable keys ARE THE GOLDEN KEYS to efficiency. They make sure the API can reuse work properly instead of getting confused with it. It sounds boring, but it’s actually a huge deal for real-world performance or letting your nod RIP.
   </p>
 
   <h2>What a key does</h2>
@@ -803,8 +1302,7 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 
   <h1 class="silver-text">Caching</h1>
   <p class="lede">
-    Tiered caching with TTL, size caps, and optional disk persistence. For when you compute
-    something expensive once and want to reuse it without thinking about it.
+   Tiered caching with TTL, size caps, refresh behavior, and optional disk persistence. Mostly when you wanna stop recomputing the same expensive nonsense over and over again.
   </p>
 
   <h2>Basic usage</h2>
@@ -815,7 +1313,18 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
     .<span class="t-fn">cache</span>(<span class="t-str">"myBucket"</span>)
     .<span class="t-fn">ttl</span>(<span class="t-ty">Duration</span>.<span class="t-fn">ofMinutes</span>(<span class="t-num">5</span>))
     .<span class="t-fn">maxEntries</span>(<span class="t-num">1024</span>)
-    .<span class="t-fn">get</span>(cacheKey, () -&gt; <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">compute</span>(<span class="t-str">"recompute"</span>).<span class="t-fn">submit</span>(loader));
+    .<span class="t-fn">memoryOnly</span>()
+    .<span class="t-fn">getAsync</span>(cacheKey, () -&gt; <span class="t-fn">rebuildExpensiveThing</span>());
+
+<span class="t-cm">// Warm it up early without making a weird sync path depend on it</span>
+<span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">cache</span>(<span class="t-str">"myBucket"</span>)
+    .<span class="t-fn">ttl</span>(<span class="t-ty">Duration</span>.<span class="t-fn">ofMinutes</span>(<span class="t-num">5</span>))
+    .<span class="t-fn">prefetch</span>(cacheKey, () -&gt; <span class="t-fn">rebuildExpensiveThing</span>());
+
+<span class="t-cm">// Force a background refresh if inputs changed and the old entry is now sus</span>
+<span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">cache</span>(<span class="t-str">"myBucket"</span>)
+    .<span class="t-fn">ttl</span>(<span class="t-ty">Duration</span>.<span class="t-fn">ofMinutes</span>(<span class="t-num">5</span>))
+    .<span class="t-fn">refreshAsync</span>(cacheKey, () -&gt; <span class="t-fn">rebuildExpensiveThing</span>());
 
 <span class="t-cm">// Manual eviction on dimension unload</span>
 <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">cache</span>(<span class="t-str">"myBucket"</span>).<span class="t-fn">remove</span>(keyForDimension);
@@ -824,17 +1333,48 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 <span class="t-ty">QuantifiedAPI</span>.<span class="t-fn">cache</span>(<span class="t-str">"myBucket"</span>).<span class="t-fn">clear</span>();</div>
   </div>
 
+  <h2>Policy knobs</h2>
+  <div class="table-wrap">
+    <table class="docs-table">
+      <thead><tr><th>Method</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ic">memoryOnly()</span></td><td>Keep the bucket in memory only. Good default for short-lived gameplay state.</td></tr>
+        <tr><td><span class="ic">diskPreferred()</span></td><td>Persist the bucket to disk too. Good for warmup/planner artifacts or expensive derived data.</td></tr>
+        <tr><td><span class="ic">compressed()</span></td><td>Enable compression for persistent caches. Useful when entries are chunky and disk-heavy.</td></tr>
+        <tr><td><span class="ic">refreshOnAccess()</span></td><td>Touch the TTL on reads so hot entries stay alive while they&rsquo;re actually being used.</td></tr>
+        <tr><td><span class="ic">fixedTtl()</span></td><td>Do not extend TTL on reads. Better when you want old entries to die on schedule no matter what.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Load helpers</h2>
+  <div class="table-wrap">
+    <table class="docs-table">
+      <thead><tr><th>Method</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ic">get(key, loader)</span></td><td>Simple sync lookup with compute-on-miss.</td></tr>
+        <tr><td><span class="ic">getAsync(key, loader)</span></td><td>Async lookup with compute-on-miss.</td></tr>
+        <tr><td><span class="ic">prefetch(key, loader)</span></td><td>Warmup or preloading before the value is urgently needed.</td></tr>
+        <tr><td><span class="ic">refresh(key, loader)</span></td><td>Force a synchronous replacement of an existing entry.</td></tr>
+        <tr><td><span class="ic">refreshAsync(key, loader)</span></td><td>Force a background replacement of an entry when the old value is stale or invalid.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h2>Practical advice</h2>
   <ul>
-    <li>Set <span class="ic">maxEntries</span>. Without it, caches can grow unbounded and eat your heap. That&rsquo;s bad.</li>
-    <li>Pick TTLs tied to gameplay time, not wall time. &ldquo;5 minutes&rdquo; of server time is more meaningful than 5 real minutes.</li>
+    <li>Set <span class="ic">maxEntries</span>. Without it, caches can grow stupidly large and eat your heap.</li>
+    <li>Use <span class="ic">memoryOnly()</span> for fast ephemeral state and <span class="ic">diskPreferred()</span> for expensive artifacts worth surviving a restart.</li>
+    <li>Use <span class="ic">refreshOnAccess()</span> when the same hot entries get hammered a lot. Use <span class="ic">fixedTtl()</span> when you want time-based expiry to stay strict.</li>
+    <li>Use <span class="ic">prefetch(...)</span> for warmup systems. Use <span class="ic">refreshAsync(...)</span> when the old value exists but is now out of date.</li>
     <li>Clear buckets on dimension unload events. Stale per-dimension data after unload is a memory leak.</li>
-    <li>Use separate buckets for logically separate data. Don&rsquo;t throw chunk data and entity data in the same bucket.</li>
+    <li>Use separate buckets for logically separate data. Don&rsquo;t throw chunk data, entity data, and planner artifacts into one blob bucket.</li>
   </ul>
 
   <div class="hint">
-    The <span class="ic">cache</span> loader is a <span class="ic">Supplier&lt;CompletableFuture&lt;T&gt;&gt;</span>.
-    That means the loader itself can submit async work. Cache + compute stack cleanly together for prefetch patterns.
+    Don&rsquo;t confuse <span class="ic">compute(...).key(...)</span> with <span class="ic">cache(...)</span>.
+    The compute key is for in-flight identity and dedupe. The cache bucket is for stored value reuse.
+    You will often want both.
   </div>
 
   <footer class="site-footer">
@@ -848,8 +1388,7 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 
   <h1 class="silver-text">GPU routing</h1>
   <p class="lede">
-    Vulkan-first, OpenCL as fallback, honest CPU escape hatch. Quantified API figures out what&rsquo;s available
-    at runtime and routes accordingly. You just describe what you want.
+    Vulkan is the preffered one, OpenCL is the fallback. Quantified API at runtime figures out what&rsquo;s available and routes accordingly. You can also tell the API what you want :]
   </p>
 
   <h2>How the router works</h2>
@@ -858,16 +1397,16 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
     the <span class="ic">GpuBackendRouter</span> checks:
   </p>
   <ol>
-    <li>Is Vulkan available and initialized? If yes and preference is <span class="ic">VULKAN_FIRST</span> or <span class="ic">AUTO</span>, try Vulkan.</li>
-    <li>If Vulkan fails or is unavailable, try OpenCL if you provided an OpenCL workload.</li>
-    <li>If both GPU paths fail or are unavailable, fall back to your <span class="ic">cpuFallback</span>.</li>
-    <li>If no fallback is provided and GPU fails, the future completes exceptionally.</li>
+    <li>Is Vulkan available and initialized? If yes and preference is <span class="ic">VULKAN_FIRST</span> or <span class="ic">AUTO</span>, tries Vulkan.</li>
+    <li>If Vulkan fails or is unavailable, the API tries OpenCL if you provided an OpenCL workload.</li>
+    <li>If both GPU paths fail or are unavailable, it falls back to your <span class="ic">cpuFallback</span>.</li>
+    <li>If no fallback is provided and the GPU fails, the future completes exceptionally.</li>
   </ol>
 
   <div class="danger">
     Always provide a <span class="ic">cpuFallback</span> when using GPU workloads. If the player&rsquo;s GPU
-    doesn&rsquo;t support your shader, or Vulkan probe fails, or drivers are weird (and drivers are ALWAYS weird),
-    you need somewhere to land. No fallback = mod breaks on some hardware. :((
+    doesn&rsquo;t support your shader, or Vulkan probe fails, or drivers are weird (and drivers are ALWAYS weird), or the player is running the API on a server,
+    you need somewhere to send the compute tasks. No fallback = everything goes boom :[
   </div>
 
   <h2>Backend preferences</h2>
@@ -876,9 +1415,9 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
       <thead><tr><th>Preference</th><th>Behavior</th></tr></thead>
       <tbody>
         <tr><td><span class="ic">AUTO</span></td><td>Quantified API decides based on device capabilities and workload hints.</td></tr>
-        <tr><td><span class="ic">VULKAN_FIRST</span></td><td>Try Vulkan, then OpenCL, then CPU.</td></tr>
-        <tr><td><span class="ic">OPENCL_FIRST</span></td><td>Try OpenCL first, then CPU. Useful for wider compat.</td></tr>
-        <tr><td><span class="ic">CPU_ONLY</span></td><td>Skip GPU entirely. Handy for debugging or server-side-only paths.</td></tr>
+        <tr><td><span class="ic">VULKAN_FIRST</span></td><td>Tries Vulkan, then OpenCL, then CPU.</td></tr>
+        <tr><td><span class="ic">OPENCL_FIRST</span></td><td>Tries OpenCL first, then CPU. Useful for wider compat.</td></tr>
+        <tr><td><span class="ic">CPU_ONLY</span></td><td>Skips the GPU entirely. Handy for debugging or server-side-only paths.</td></tr>
       </tbody>
     </table>
   </div>
@@ -902,15 +1441,14 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 
   <h1 class="silver-text">Errors &amp; failure policies</h1>
   <p class="lede">
-    Exceptions don&rsquo;t get swallowed in Quantified API. They propagate through the future chain.
-    Here&rsquo;s how to handle them properly without crying.
+Don’t expect the API to quietly bury your mistakes (like its fine.... it aint). Unhandled errors spread fast and break everything they touch (like cancer... its bad). Here is how to catch them properly so you can keep your code (and your sanity) intact (hopefully...).
   </p>
 
   <h2>The golden rule</h2>
   <p>
     Always keep a reference to your futures and always attach an <span class="ic">exceptionally</span> or
     <span class="ic">handle</span> somewhere in the chain. If you fire-and-forget a future and it fails silently,
-    that&rsquo;s on you. Quantified API surfaces the error, you just need to listen.
+    that&rsquo;s on you. Quantified API surfaces the error, you just need to see it.
   </p>
   <div class="code-wrap">
     <div class="code-header"><span class="code-lang">Java</span><button class="code-copy" type="button">copy</button></div>
@@ -937,9 +1475,12 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 
   <h2>IllegalStateException</h2>
   <p>
-    You get this if you call <span class="ic">compute</span>, <span class="ic">parallel</span>, or <span class="ic">cache</span>
-    before <span class="ic">register</span>. The fix is always the same: register earlier. Put it in your mod constructor.
-    It takes one line. xD
+    In V2, this is no longer the normal failure mode. <span class="ic">compute</span>, <span class="ic">parallel</span>,
+    <span class="ic">graph</span>, and <span class="ic">cache</span> will usually auto-register your mod on first use.
+    If you still hit an <span class="ic">IllegalStateException</span>, it usually means auto-detection could not tell which
+    mod owns the call because you are inside shared helper code, a test harness, an unusual bootstrap path, or some other
+    ambiguous context. The fix is to use the explicit <span class="ic">modId</span> overloads or call
+    <span class="ic">register(modId)</span> as a manual override.
   </p>
 
   <footer class="site-footer">
@@ -954,17 +1495,17 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
   <h1 class="silver-text">Monitoring &amp; telemetry</h1>
   <p class="lede">
     Quantified API ships with a built-in webpanel and metrics system. Turn it on, poke around,
-    and actually see what your async code is doing. It&rsquo;s really useful, I promise :D
+    and actually see what your code is doing (hopefully not frying the game xd). It's pretty useful :] 
   </p>
 
   <h2>Developer dashboard</h2>
   <p>
-    Set <span class="ic">"developerDashboard": true</span> in the config to enable it. The dashboard runs as a
+    Set <span class="ic">"developerDashboard": true</span> in the config or run <span class="ic">/quantified webpanel</span> in-game to enable it. The dashboard runs as a
     local HTTP server (port configurable, default something sensible). Open it in a browser while the game is running.
   </p>
   <p>
     You&rsquo;ll see: task throughput, queued work, GPU metrics (if applicable), per-mod stats, error rates,
-    and timing histograms. It&rsquo;s actually kind of cool to watch in real time while stress testing.
+    and timing histograms. It&rsquo;s actually USEFUL for debugging or finding out what's causing bottlenecks.
   </p>
 
   <h2>Developer flags</h2>
@@ -990,8 +1531,7 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
   </p>
 
   <div class="callout">
-    Leave debug flags off in production. <span class="ic">debugShowTimings</span> especially can spam logs
-    on busy servers. Enable them in a test world, grab what you need, and turn them off before shipping. ;]
+    Leave debug flags off in production. <span class="ic">debugShowTimings</span> especially can spam logs to extreme lenghts. Enable them in a test world, grab what you need, and turn them off, unless you're that guy yk
   </div>
 
   <footer class="site-footer">
@@ -1003,10 +1543,9 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 
 <section id="config" class="page">
 
-  <h1 class="silver-text">Configuration reference</h1>
+  <h1 class="silver-text">Configuring the API</h1>
   <p class="lede">
-    Everything lives in <span class="ic">quantified_config.json</span>. The defaults are sane.
-    Here&rsquo;s what&rsquo;s actually worth tweaking.
+  All of the configs live in <span class="ic">quantified_config.json</span>. 
   </p>
 
   <h2>Thread pools</h2>
@@ -1073,7 +1612,7 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
   <div class="hint">
     Dashboard options: <span class="ic">developerDashboard</span>, <span class="ic">developerDashboardAuth</span>,
     and session timeout live in the same config. If you enable auth, pair it with HTTPS on non-loopback interfaces.
-    Exposing an unauthed HTTP server on a public server is a bad idea and you know it xD
+    Exposing an unauthed HTTP server on a public server is a bad idea... Don't blame me if someone gets access to it...
   </div>
 
   <footer class="site-footer">
@@ -1087,17 +1626,17 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
 
   <h1 class="silver-text">Troubleshooting</h1>
   <p class="lede">
-    The issues that actually come up. Quick answers, no fluff.
+     Look, we both know why you're here xd. Something broke, isn't performing well or you're experiencing the peak of modding - the infamous red and white logs (R.I.P). It happens to all of us, and these tips should help ya out :]
   </p>
 
   <details class="expand" open>
-    <summary>&ldquo;QuantifiedAPI not initialized&rdquo;</summary>
+    <summary>QAPI couldn&rsquo;t auto-detect my mod :[</summary>
     <div class="expand-body">
       <p>
-        You called <span class="ic">compute</span>/<span class="ic">parallel</span>/<span class="ic">cache</span> before
-        <span class="ic">register</span>, OR you lost the <span class="ic">ThreadLocal</span> context (common in cross-mod
-        helper classes or static initializers). Fix: register as early as possible (mod constructor), and use the
-        explicit <span class="ic">modId</span> overloads in helpers. Really that&rsquo;s it. xD
+        Auto-detection usually works, but helper classes, test environments, static initializers, shared libs, or cross-mod
+        utilities can make ownership ambiguous. Fix: use the explicit <span class="ic">modId</span> overloads like
+        <span class="ic">compute(modId, task)</span>, or call <span class="ic">register(modId)</span> as a manual override.
+        Really that&rsquo;s it. xD
       </p>
     </div>
   </details>
@@ -1150,7 +1689,7 @@ future.<span class="t-fn">thenAccept</span>(digest -&gt; {
   <div class="callout">
     When filing a bug: grab a dashboard export, the relevant section of <span class="ic">logs/latest.log</span>,
     your Quantified API version string, and your config file. For GPU issues, also grab the GPU diagnostics section from the dashboard.
-    Stack trace alone is usually not enough context. ;]
+    Stack trace alone is usually not enough context ;]
   </div>
 
   <footer class="site-footer">

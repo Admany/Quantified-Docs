@@ -1,6 +1,26 @@
 @keyframes grid-drift {
   0%   { transform: translate(0, 0); }
-  100% { transform: translate(-100px, -100px); }
+  35%  { transform: translate(-34px, -22px); }
+  70%  { transform: translate(-72px, -58px); }
+  100% { transform: translate(-110px, -92px); }
+}
+
+@keyframes grid-wind {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.2;
+    background-position: 0% 50%;
+  }
+  35% {
+    transform: translate3d(12px, -6px, 0);
+    opacity: 0.34;
+    background-position: 52% 50%;
+  }
+  70% {
+    transform: translate3d(-10px, 8px, 0);
+    opacity: 0.26;
+    background-position: 100% 50%;
+  }
 }
 
 @keyframes orb-a {
@@ -22,13 +42,6 @@
 @keyframes bg-sweep {
   0%, 100% { background-position: 180% 0; }
   50%       { background-position: -80% 0; }
-}
-
-@keyframes scanline-crawl {
-  0%   { transform: translateY(-8px); opacity: 0; }
-  5%   { opacity: 0.55; }
-  95%  { opacity: 0.55; }
-  100% { transform: translateY(100vh); opacity: 0; }
 }
 
 @keyframes aurora-shift {
