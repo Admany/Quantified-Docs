@@ -1344,6 +1344,73 @@ li strong { color: var(--text); }
 
 
 @media (max-width: 960px) {
+  #bg-canvas {
+    opacity: 0.92;
+  }
+
+  .bg-grid {
+    inset: -45%;
+    opacity: 0.3;
+    background-size: 54px 54px;
+    animation: grid-drift 110s linear infinite;
+  }
+
+  .bg-grid::before {
+    display: block;
+    opacity: 0.18;
+    animation: grid-wind 34s ease-in-out infinite;
+  }
+
+  .bg-glow-c,
+  .noise-overlay {
+    display: none;
+  }
+
+  .bg-glow-a {
+    width: min(72vw, 360px);
+    height: min(72vw, 360px);
+    top: -12%;
+    right: -18%;
+    opacity: 0.52;
+    filter: blur(52px);
+    animation: orb-a 26s ease-in-out infinite;
+  }
+
+  .bg-glow-b {
+    display: block;
+    width: min(56vw, 280px);
+    height: min(56vw, 280px);
+    left: -14%;
+    bottom: -10%;
+    opacity: 0.38;
+    filter: blur(46px);
+    animation: orb-b 32s ease-in-out infinite;
+  }
+
+  .bg-sweep {
+    display: block;
+    opacity: 0.55;
+    background: linear-gradient(128deg,
+      transparent 0%, transparent 34%,
+      rgba(255,255,255,0.038) 50%,
+      transparent 66%, transparent 100%);
+    background-size: 170% 100%;
+    animation: bg-sweep 18s ease-in-out infinite;
+  }
+
+  .bg-aurora {
+    display: block;
+    height: 150px;
+    opacity: 0.42;
+    filter: blur(28px);
+    animation: aurora-shift 26s ease infinite;
+  }
+
+  .bg-vignette {
+    background: radial-gradient(ellipse 88% 82% at 50% 42%,
+      transparent 0%, rgba(0,0,0,0.34) 100%);
+  }
+
   .nav-toggle { display: flex; }
 
   body.mobile-nav-open {
@@ -1403,5 +1470,36 @@ li strong { color: var(--text); }
   .flow-row { flex-direction: column; align-items: flex-start; }
   .license-meta {
     gap: 6px 14px;
+  }
+
+  .card,
+  .migration-item,
+  .ad,
+  .code-wrap,
+  .table-wrap,
+  .expand {
+    box-shadow: none;
+  }
+
+  .content-wrapper {
+    animation: content-breathe 32s ease-in-out infinite;
+  }
+
+  .page.active {
+    animation: page-slide-in 0.26s var(--ease-expo) both;
+  }
+
+  .page.active > h1,
+  .page.active > p.lede,
+  .page.active > *:nth-child(3),
+  .page.active > *:nth-child(4),
+  .page.active > *:nth-child(5),
+  .page.active > *:nth-child(6),
+  .page.active > *:nth-child(n+7),
+  #license.page.active > .license-page-head,
+  #license.page.active > .license-document-shell,
+  #license.page.active > .site-footer {
+    animation-duration: 0.22s !important;
+    animation-delay: 0s !important;
   }
 }

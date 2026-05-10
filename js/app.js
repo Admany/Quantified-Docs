@@ -3,17 +3,25 @@
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const prefersReduced  = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobileViewport = () => window.matchMedia('(max-width: 960px)').matches || window.matchMedia('(pointer: coarse)').matches;
 
-  let W, H, particles = [], raf, dpr = 1, particleCount = 88, connectDist = 148;
+  let W, H, particles = [], raf, dpr = 1, particleCount = 88, connectDist = 148, maxFps = 60, lastFrameTime = 0;
 
   function tuneForViewport() {
     const area = window.innerWidth * window.innerHeight;
+    if (isMobileViewport()) {
+      particleCount = Math.max(36, Math.min(64, Math.round(area / 26000)));
+      connectDist = Math.max(92, Math.min(128, Math.round(Math.sqrt(area) / 9.5)));
+      maxFps = 30;
+      return;
+    }
     particleCount = Math.max(88, Math.min(190, Math.round(area / 18000)));
     connectDist = Math.max(148, Math.min(230, Math.round(Math.sqrt(area) / 7.25)));
+    maxFps = 60;
   }
 
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    dpr = Math.min(window.devicePixelRatio || 1, isMobileViewport() ? 1.25 : 2);
     W = window.innerWidth;
     H = window.innerHeight;
     canvas.width = Math.round(W * dpr);
@@ -69,6 +77,7 @@
 
   function drawConnections() {
     const count = particles.length;
+    const useMobileOpacity = isMobileViewport();
     for (let i = 0; i < count - 1; i++) {
       const a = particles[i];
       for (let j = i + 1; j < count; j++) {
@@ -77,19 +86,25 @@
         const dy = a.y - b.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < connectDist) {
-          const alpha = (1 - dist / connectDist) * 0.12;
+          const alpha = (1 - dist / connectDist) * (useMobileOpacity ? 0.08 : 0.12);
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
           ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
-          ctx.lineWidth = 0.95;
+          ctx.lineWidth = useMobileOpacity ? 0.8 : 0.95;
           ctx.stroke();
         }
       }
     }
   }
 
-  function frame() {
+  function frame(now = 0) {
+    const frameInterval = 1000 / maxFps;
+    if (now - lastFrameTime < frameInterval) {
+      raf = requestAnimationFrame(frame);
+      return;
+    }
+    lastFrameTime = now;
     ctx.clearRect(0, 0, W, H);
     particles.forEach(p => { p.update(); p.draw(); });
     drawConnections();
@@ -108,10 +123,20 @@
   window.addEventListener('resize', () => {
     resize();
     init();
+    lastFrameTime = 0;
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      return;
+    }
+    lastFrameTime = 0;
+    if (!raf) raf = requestAnimationFrame(frame);
   });
   resize();
   init();
-  frame();
+  raf = requestAnimationFrame(frame);
 })();
 
 ;(function () {
