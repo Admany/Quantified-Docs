@@ -1077,9 +1077,9 @@ The public version of LC²H on GitHub is still on V1, but these snippets are pul
 
   <h2>Thread safety bit</h2>
   <p>
-    <span class="ic">ComputeRequest.threadSafe(boolean)</span> is a hint to the scheduler. Default is <span class="ic">true</span>.
-    If you mark a task as not thread-safe, the scheduler may serialize it with other tasks sharing the same affinity key.
-    Use <span class="ic">affinityKey(String)</span> to group tasks that must not overlap.
+    <span class="ic">ComputeRequest.threadSafe()</span> and <span class="ic">notThreadSafe()</span> tell the scheduler whether the work is actually safe to run in parallel.
+    If you mark a task as not thread-safe, the runtime can keep it from overlapping with other work sharing the same affinity lane.
+    Use <span class="ic">affinity(String)</span> to group tasks that must not overlap.
   </p>
 
   <div class="hint">
@@ -1099,8 +1099,8 @@ The public version of LC²H on GitHub is still on V1, but these snippets are pul
 
   <h1 class="silver-text">Compute - the workhorse</h1>
   <p class="lede">
-    <span class="ic">QuantifiedAPI.compute(taskName)</span> is what you&rsquo;ll use most.
-    It&rsquo;s a fluent builder for a single async task that can optionally run on GPU.
+    <span class="ic">QuantifiedAPI.compute(taskName)</span> is what you&rsquo;ll use most xd.
+    It&rsquo;s the main V2 builder for one unit of work, and it can still route into GPU processing if the task seems fit for it.
   </p>
 
   <h2>Key ComputeRequest methods</h2>
@@ -1108,20 +1108,28 @@ The public version of LC²H on GitHub is still on V1, but these snippets are pul
     <table class="docs-table">
       <thead><tr><th>Method</th><th>What it does</th></tr></thead>
       <tbody>
-        <tr><td><span class="ic">.key(String)</span></td><td>Stable dedup key. Tasks with the same key get the same hash-based ID. Use dimension + coords for world stuff.</td></tr>
+        <tr><td><span class="ic">.key(String)</span> / <span class="ic">.key(long)</span></td><td>Stable identity for this job. Use real input-shaped keys like dimension + coords, resource path, UUID, region ID, and so on.</td></tr>
         <tr><td><span class="ic">.foreground()</span></td><td>High priority. For work the player will notice if it&rsquo;s late.</td></tr>
         <tr><td><span class="ic">.background()</span></td><td>Low priority. For prewarming, analytics, anything that can wait.</td></tr>
+        <tr><td><span class="ic">.critical()</span></td><td>Use this when the result is genuinely urgent and late work is basically worthless.</td></tr>
         <tr><td><span class="ic">.priority(ExecutionPriority)</span></td><td>Full control: AUTO, BACKGROUND, FOREGROUND, CRITICAL.</td></tr>
-        <tr><td><span class="ic">.timeout(Duration)</span></td><td>Per-task timeout. Overrides global config default.</td></tr>
-        <tr><td><span class="ic">.threadSafe(boolean)</span></td><td>Hint to scheduler. Default true.</td></tr>
-        <tr><td><span class="ic">.affinityKey(String)</span></td><td>Group tasks that must not run concurrently.</td></tr>
-        <tr><td><span class="ic">.vulkanWorkload(fn)</span></td><td>Vulkan compute path. Provide a <span class="ic">cpuFallback</span> too!</td></tr>
-        <tr><td><span class="ic">.openclWorkload(fn)</span></td><td>OpenCL path. Used as fallback to Vulkan when <span class="ic">VULKAN_FIRST</span>.</td></tr>
-        <tr><td><span class="ic">.cpuFallback(Supplier)</span></td><td>Always-safe path. Required if you have GPU workloads.</td></tr>
+        <tr><td><span class="ic">.timeout(Duration)</span></td><td>Per-task timeout. Good when a planner or world query should just give up instead of stalling forever.</td></tr>
+        <tr><td><span class="ic">.threadSafe()</span> / <span class="ic">.notThreadSafe()</span></td><td>Tell the runtime whether this work can safely run off-thread. Default is thread-safe due to obvious reasons xd.</td></tr>
+        <tr><td><span class="ic">.affinity(String)</span></td><td>Serialize work that must NOT overlap. Good for same-region, same-structure, same-entity, same-whatever pipelines xd.</td></tr>
+        <tr><td><span class="ic">.work(Supplier)</span></td><td>Your normal CPU implementation. If you never attach GPU workloads, this is the work that runs it.</td></tr>
+        <tr><td><span class="ic">.fallback(Supplier)</span></td><td>Explicit CPU fallback when you do have GPU workloads. You really DO want to do this ;DD.</td></tr>
+        <tr><td><span class="ic">.vulkanWorkload(fn)</span></td><td>Attach a Vulkan compute workload.</td></tr>
+        <tr><td><span class="ic">.openclWorkload(fn)</span></td><td>Attach an OpenCL workload too, either as your preferred path or as another fallback lane.</td></tr>
         <tr><td><span class="ic">.complexity(Complexity)</span></td><td>SIMPLE, MODERATE, HEAVY, MASSIVE - affects cost model and GPU queue selection.</td></tr>
         <tr><td><span class="ic">.kind(WorkloadKind)</span></td><td>GENERAL, VECTOR_MATH, MATRIX_MATH, SIMULATION, etc.</td></tr>
-        <tr><td><span class="ic">.backendPreference(GpuBackendPreference)</span></td><td>AUTO, VULKAN_FIRST, OPENCL_FIRST, CPU_ONLY.</td></tr>
-        <tr><td><span class="ic">.submit(Supplier&lt;T&gt;)</span></td><td>Kick it off. Returns <span class="ic">CompletableFuture&lt;T&gt;</span>.</td></tr>
+        <tr><td><span class="ic">.dataSizeBytes(...)</span></td><td>Tell the GPU router how chunky the workload really is. Don&rsquo;t lie here or ya just mess up backend choice.</td></tr>
+        <tr><td><span class="ic">.parallelUnits(...)</span></td><td>Approximate how much parallel work the kernel has. Helps QAPI stop treating tiny kernels like huge ones.</td></tr>
+        <tr><td><span class="ic">.preferGpu()</span></td><td>Tell QAPI you want GPU routing if it&rsquo;s worth it, but keep fallback freedom.</td></tr>
+        <tr><td><span class="ic">.preferVulkan()</span> / <span class="ic">.preferOpenCL()</span></td><td>Tell the router what GPU processing backend you actually want first.</td></tr>
+        <tr><td><span class="ic">.requireVulkan()</span> / <span class="ic">.requireOpenCL()</span></td><td>Hard-require a backend when the workload is built around it so VK tasks don&rsquo;t pop into OpenCL and blow stuff up.</td></tr>
+        <tr><td><span class="ic">.cpuOnly()</span></td><td>Nuke GPU routing for this request and keep it fully on CPU.</td></tr>
+        <tr><td><span class="ic">.allowMainThreadRerouting(false)</span></td><td>Turn off emergency rerouting when you ABSOLUTELY do not want this work bounced back onto the main thread (useful for a lot of cases).</td></tr>
+        <tr><td><span class="ic">.submit()</span> / <span class="ic">.submit(Supplier&lt;T&gt;)</span></td><td>Kick it off. Returns <span class="ic">CompletableFuture&lt;T&gt;</span>.</td></tr>
       </tbody>
     </table>
   </div>
@@ -1130,6 +1138,11 @@ The public version of LC²H on GitHub is still on V1, but these snippets are pul
     Set <span class="ic">complexity</span> and <span class="ic">kind</span> honestly. If you label everything
     <span class="ic">MASSIVE</span>, small tasks will hog GPU queues meant for actual large workloads and things get slow.
     Also that&rsquo;s just mean to the scheduler and the other mods :[
+  </div>
+
+  <div class="warn">
+    If you want stable joining or reuse, use a real <span class="ic">key(...)</span>. If you want so that these jobs don&rsquo;t overlap,
+    use <span class="ic">affinity(...)</span>. Don&rsquo;t mush them together in your head because they solve different problems, not the same one you might expect...
   </div>
 
   <footer class="site-footer">
@@ -1280,10 +1293,10 @@ Stable keys ARE THE GOLDEN KEYS to efficiency. They make sure the API can reuse 
 .<span class="t-fn">key</span>((<span class="t-kw">long</span>) chunkX &lt;&lt; <span class="t-num">32</span> | (chunkZ &amp; <span class="t-num">0xFFFFFFFFL</span>))</div>
   </div>
 
-  <h2>Affinty keys</h2>
+  <h2>Affinity keys</h2>
   <p>
-    <span class="ic">affinityKey(String)</span> is different. It groups tasks that must not overlap in execution.
-    Use it when your tasks write to shared mutable state that&rsquo;s keyed per-dimension or per-region.
+    <span class="ic">affinity(String)</span> is DIFFERENT. It groups tasks that must not overlap in execution.
+    Use it when your tasks write to a shared mutable state that&rsquo;s keyed per-dimension or per-region.
   </p>
 
   <div class="warn">
@@ -1397,14 +1410,15 @@ Stable keys ARE THE GOLDEN KEYS to efficiency. They make sure the API can reuse 
     the <span class="ic">GpuBackendRouter</span> checks:
   </p>
   <ol>
-    <li>Is Vulkan available and initialized? If yes and preference is <span class="ic">VULKAN_FIRST</span> or <span class="ic">AUTO</span>, tries Vulkan.</li>
-    <li>If Vulkan fails or is unavailable, the API tries OpenCL if you provided an OpenCL workload.</li>
-    <li>If both GPU paths fail or are unavailable, it falls back to your <span class="ic">cpuFallback</span>.</li>
+    <li>Checks what you asked for: <span class="ic">preferVulkan()</span>, <span class="ic">preferOpenCL()</span>, <span class="ic">requireVulkan()</span>, <span class="ic">requireOpenCL()</span>, <span class="ic">preferGpu()</span>, or <span class="ic">cpuOnly()</span>.</li>
+    <li>If the preferred backend is available and your workload is ready/attached for it, Quantified API tries that backend first.</li>
+    <li>If the preferred GPU path misses/bonks and the request was only a preference, it can still try the other GPU backend if your code can use it. :]</li>
+    <li>If both GPU backends fail or are unavailable, it falls back to your <span class="ic">fallback(...)</span> CPU path (DON&rsquo;T FORGET TO INCLUDE A CPU FALLBACK!!!)</li>
     <li>If no fallback is provided and the GPU fails, the future completes exceptionally.</li>
   </ol>
 
   <div class="danger">
-    Always provide a <span class="ic">cpuFallback</span> when using GPU workloads. If the player&rsquo;s GPU
+    Always provide a <span class="ic">fallback(...)</span> when using GPU workloads. If the player&rsquo;s GPU
     doesn&rsquo;t support your shader, or Vulkan probe fails, or drivers are weird (and drivers are ALWAYS weird), or the player is running the API on a server,
     you need somewhere to send the compute tasks. No fallback = everything goes boom :[
   </div>
@@ -1414,10 +1428,12 @@ Stable keys ARE THE GOLDEN KEYS to efficiency. They make sure the API can reuse 
     <table class="docs-table">
       <thead><tr><th>Preference</th><th>Behavior</th></tr></thead>
       <tbody>
-        <tr><td><span class="ic">AUTO</span></td><td>Quantified API decides based on device capabilities and workload hints.</td></tr>
-        <tr><td><span class="ic">VULKAN_FIRST</span></td><td>Tries Vulkan, then OpenCL, then CPU.</td></tr>
-        <tr><td><span class="ic">OPENCL_FIRST</span></td><td>Tries OpenCL first, then CPU. Useful for wider compat.</td></tr>
-        <tr><td><span class="ic">CPU_ONLY</span></td><td>Skips the GPU entirely. Handy for debugging or server-side-only paths.</td></tr>
+        <tr><td><span class="ic">preferGpu()</span></td><td>Lets Quantified API pick the best GPU lane it can justify, while still keeping CPU fallback open.</td></tr>
+        <tr><td><span class="ic">preferVulkan()</span></td><td>Biases routing toward Vulkan first, then other valid fallbacks.</td></tr>
+        <tr><td><span class="ic">preferOpenCL()</span></td><td>Biases routing toward OpenCL first, which can be nicer for wider hardware compat.</td></tr>
+        <tr><td><span class="ic">requireVulkan()</span></td><td>Only Vulkan is acceptable for the GPU path. If that cannot run, QAPI drops to CPU fallback instead of casually swapping GPU backends.</td></tr>
+        <tr><td><span class="ic">requireOpenCL()</span></td><td>Same idea, but for OpenCL.</td></tr>
+        <tr><td><span class="ic">cpuOnly()</span></td><td>Skips the GPU entirely. Handy for debugging, tiny workloads, or server-side-only paths.</td></tr>
       </tbody>
     </table>
   </div>
